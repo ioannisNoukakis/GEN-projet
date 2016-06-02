@@ -1,0 +1,17 @@
+.connection-form {
+	border: 1px #777 solid;
+	border-radius: 8px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 120px;
+	padding: 20px;
+	background-color: #f6f6f6;
+}
+
+div.sub {
+	max-height: 300px;
+	overflow-y:scroll;
+	overflow-x:none;
+	padding:8px;
+}
