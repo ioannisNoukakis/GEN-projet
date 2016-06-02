@@ -1,15 +1,17 @@
 package server;
 
+import utility.Logs;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Main {
 
     public static void main(String[] args) {
-        Lobby lobby = Lobby.getIntance();
 
         try {
-            ServerSocket server = new ServerSocket(1412);
+            ServerSocket server = new ServerSocket(8000);
+            Logs.writeMessage("Server running on 8000");
 
             while(true){
                 Socket socket = server.accept();
