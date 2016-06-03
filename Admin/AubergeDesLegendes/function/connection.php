@@ -10,7 +10,7 @@
 	} else {
 		$db = new PDO("mysql:host=localhost;dbname=AubergeLegendesBdd", "root", "");
 		
-		$stmt = $db->prepare("SELECT pseudonyme FROM utilisateur WHERE pseudonyme = ? AND motDePasse = ?;");
+		$stmt = $db->prepare("SELECT pseudonyme FROM administrateur WHERE pseudonyme = ? AND motDePasse = ?;");
 		$stmt->bindParam(1, $username);
 		$stmt->bindParam(2, $password);
 		
@@ -21,12 +21,12 @@
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 		$db = null;
 		
-		if(count($result) == 1){
+		if(isset($result["pseudonyme"]) && $result["pseudonyme"] == $username){
 			$_SESSION["username"] = $username;
+			header('Location: ../index.php');
 		} else {
 			unset($_SESSION["username"]);
+			header('Location: ../index.php?error');
 		}
-		
-		header('Location: ../index.php');  
 	}
 ?>
