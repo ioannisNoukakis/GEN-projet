@@ -5,6 +5,7 @@
  */
 package server.logic_Fight;
 
+import server.Fighter;
 import server.logic_Pers.Competence;
 import server.logic_Pers.Personnage;
 import utility.MySQLUtility;
@@ -14,18 +15,22 @@ import utility.MySQLUtility;
  * @author User
  */
 public class Combat {
-   Personnage pOff;
-   Personnage pDef;
-   Competence attaque;
-   int bonusDef;
-   int bonusOff;
-   boolean estPhysique = false;
-   boolean combatPerdu = false;
-   int lastDegats;
+   private Fighter f1;
+   private Fighter f2;
+   private Personnage pOff;
+   private Personnage pDef;
+   private Competence attaque;
+   private int bonusDef;
+   private int bonusOff;
+   private boolean estPhysique = false;
+   private boolean combatPerdu = false;
+   private int lastDegats;
 
-   public Combat(Personnage pOff, Personnage pDef, Competence attaque) {
-      this.pOff = pOff;
-      this.pDef = pDef;
+   public Combat(Fighter f1, Fighter f2, Competence attaque) throws Exception{
+      this.f1 = f1;
+      this.f2 = f2;
+      this.pOff = f1.getPersonnage();
+      this.pDef = f2.getPersonnage();
       this.attaque = attaque;
       calculBonus(attaque);
       calculDegats();
@@ -36,7 +41,7 @@ public class Combat {
       return lastDegats;
    }
 
-   private void calculDegats() {
+   private void calculDegats() throws Exception {
       int degats = 0 ;
      if(chanceEsquive() != true){
         degats = (attaque.getDegats()*(10 + attaque.getFacteurPuissance()*(bonusOff-bonusDef))/10);
@@ -46,10 +51,14 @@ public class Combat {
            combatPerdu = true;
            pDef.setPointDeVie(0);
         }
-        // journal de comabt save les donnée
+        MySQLUtility.updateQuery("INSERT INTO TourDeCombat (ID_UTILISATEUR_ATTAQUANT, ID_UTILISATEUR_DEFENSEUR, esquive, NOM_COMPETENCE, degats)" +
+                "VALUES(?, ?, ?, ?, ?)",
+                f1.getId(), f2.getId(), "0", attaque.getNom(), degats);
      }else{
         System.out.println("ESQUIVE");
-        // journal de combat esquive de l'attaque
+        MySQLUtility.updateQuery("INSERT INTO TourDeCombat (ID_UTILISATEUR_ATTAQUANT, ID_UTILISATEUR_DEFENSEUR, esquive, NOM_COMPETENCE, degats)" +
+                        "VALUES(?, ?, ?, ?, ?)",
+                f1.getId(), f2.getId(), "1", attaque.getNom(), degats);
       }
       lastDegats = degats;
    }

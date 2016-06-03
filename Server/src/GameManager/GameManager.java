@@ -62,7 +62,7 @@ public class GameManager {
                 System.out.println("Your opponent: ");
                 System.out.println(gameState.getP2().toString() + "\n");
                 System.out.println("----------------------------------------------------");
-                System.out.println("last hit was : " + gameState.getLastAttack() + " and delt " + gameState.getLastHitDamage() + "\n");
+                System.out.println("last hit was : " + gameState.getLastAttack() + " and delt " + gameState.getLastHitDamage());
                 System.out.println("----------------------------------------------------");
 
                 if(gameState.isMyTurn())

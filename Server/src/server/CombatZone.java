@@ -58,7 +58,7 @@ public class CombatZone extends Thread {
                         throw new Exception("Not the object i expected.");
 
                     MakeAction mka = (MakeAction) o;
-                    combat = new Combat(fighterOne.getPersonnage(), fighterTwo.getPersonnage(), fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()));
+                    combat = new Combat(fighterOne, fighterTwo, fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()));
                     lastAttack = fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()).getNom();
                 } else {
                     Object o = fighterTwo.getIn().readObject();
@@ -66,7 +66,7 @@ public class CombatZone extends Thread {
                         throw new Exception("Not the object i expected.");
 
                     MakeAction mka = (MakeAction) o;
-                    combat = new Combat(fighterTwo.getPersonnage(), fighterOne.getPersonnage(), fighterTwo.getPersonnage().getCompetence(mka.getNumCompetence()));
+                    combat = new Combat(fighterTwo, fighterOne, fighterTwo.getPersonnage().getCompetence(mka.getNumCompetence()));
                     lastAttack = fighterTwo.getPersonnage().getCompetence(mka.getNumCompetence()).getNom();
                 }
 
@@ -79,15 +79,15 @@ public class CombatZone extends Thread {
             {
                 MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
                         i, fighterOne.getId());
-                fighterOne.getOut().writeObject(new EndBattle(true));
                 fighterOne.getOut().writeObject(new EndBattle(false));
+                fighterTwo.getOut().writeObject(new EndBattle(true));
             }
             else
             {
                 MySQLUtility.updateQuery("UPDATE Combat SET nombreDeTour=?, ID_GAGNANT=?",
                         i, fighterTwo.getId());
-                fighterOne.getOut().writeObject(new EndBattle(false));
                 fighterOne.getOut().writeObject(new EndBattle(true));
+                fighterTwo.getOut().writeObject(new EndBattle(false));
             }
 
         } catch (Exception e) {

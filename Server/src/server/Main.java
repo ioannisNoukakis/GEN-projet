@@ -8,7 +8,7 @@ import java.net.Socket;
 public class Main {
 
     public static void main(String[] args) {
-
+            //TODO Véfrier si un utilisateur est pas déjà bani.
         try {
             ServerSocket server = new ServerSocket(8000);
             Logs.writeMessage("Server running on 8000");
