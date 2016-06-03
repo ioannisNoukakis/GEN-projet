@@ -6,7 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<link rel="icon" type="image/png" href="icon.png" />
-		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="jquery-2.2.4.min.js"></script>
+		<script src="bootstrap/js/bootstrap.js"></script>
 	</head>
 	<?php
 	/**
@@ -18,21 +19,28 @@
 	if(isset($_SESSION["username"]) && $_SESSION["username"] != "") {
 		?>
 			<div class="container">
-				<h1>Bonjour <?php print($_SESSION["username"]); ?></h1>
 				<div class="row">
-					<div class="col-md-4">
-						<h2>Races</h2>
+					<div class="admin-welcome">
+						<h1>Bonjour <?php print($_SESSION["username"]); ?></h1>
 					</div>
-					<div class="col-md-4">
-						<h2>Classes</h2>
+					<div class="disconnect">
+						<a href="function/disconnection.php">D&eacute;connexion</a>
 					</div>
-					<div class="col-md-4">
-						<h2>Comp&eacute;tences</h2>
+				</div>
+				<?php if(isset($_GET["error"])){ ?>
+				<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Error</strong> Error inserting data into database !
+				</div>
+				<?php } ?>
+				<div class="row subtitle">
+					<div class="col-md-12">
+						<h2>Races, classes &amp; comp&eacute;tences</h2>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4">
-						<h3>Créer une race</h3>
+						<h3>Cr&eacute;er une race</h3>
 						<div class="sub">
 							<form name="create-breed" method="post" action="function/createbreed.php">
 								<div class="form-group">
@@ -64,7 +72,7 @@
 						</div>
 					</div>
 					<div class="col-md-4">
-						<h3>Créer une classe</h3>
+						<h3>Cr&eacute;er une classe</h3>
 						<div class="sub">
 							<form name="create-class" method="post" action="function/createclass.php">
 								<div class="form-group">
@@ -124,7 +132,7 @@
 						</div>
 					</div>
 					<div class="col-md-4">
-						<h3>Créer une comp&eacute;tence</h3>
+						<h3>Cr&eacute;er une comp&eacute;tence</h3>
 						<div class="sub">
 							<form name="create-skill" method="post" action="function/createskill.php">
 								<div class="form-group">
@@ -138,8 +146,8 @@
 									</label>
 								</div>
 								<div class="form-group">
-									<label for="txtSkillCost">Coût</label>
-									<input type="text" class="form-control" id="txtSkillCost" name="skillcost" placeholder="Coût" required />
+									<label for="txtSkillCost">Co&ucirc;t</label>
+									<input type="text" class="form-control" id="txtSkillCost" name="skillcost" placeholder="Co&ucirc;t" required />
 								</div>
 								<div class="form-group">
 									<label for="txtSkillCooldown">Cooldown</label>
@@ -255,12 +263,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<h2>Utilsateurs</h2>
-					</div>
-					<div class="col-md-6">
-						<h2>Personnages</h2>
+				<div class="row subtitle">
+					<div class="col-md-12">
+						<h2>Utilisateurs &amp; personnages</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -305,7 +310,7 @@
 						</div>
 					</div>
 					<div class="col-md-3">
-						<h3>Créer un personnage</h3>
+						<h3>Cr&eacute;er un personnage</h3>
 						<div class="sub">
 							<form name="pardon-character" method="post" action="function/createcharacter.php">
 								<div class="form-group">
@@ -415,28 +420,33 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<a href="function/disconnection.php">D&eacute;connexion</a>
-					</div>
-				</div>
 			</div>
 		<?php
 	} else {
 		?>
-		<div class="connection-form">
-			<h3>Connexion</h3>
-			<form name="connection" method="post" action="function/connection.php">
-				<div class="form-group">
-					<label for="txtEmail">Nom d'utilisateur</label>
-					<input type="text" class="form-control" id="txtUsername" name="username" placeholder="Nom d'utilisateur">
+		<div class="container">
+			<h1>L'Auberge des L&eacute;gendes</h1>
+			<h2>Administration</h2>
+			<div class="connection-form">
+				<?php if(isset($_GET["error"])){ ?>
+				<div class="alert alert-warning alert-dismissible" id="wrongPass">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Error : </strong> Wrong username or password !
 				</div>
-				<div class="form-group">
-					<label for="txtPasword">Mot de passe</label>
-					<input type="password" class="form-control" id="txtPassword" name="password" placeholder="Mot de passe">
-				</div>
-				<button type="submit" class="btn btn-default">Envoyer</button>
-			</form>
+				<?php } ?>
+				<h3>Connexion</h3>
+				<form name="connection" method="post" action="function/connection.php">
+					<div class="form-group">
+						<label for="txtEmail">Nom d'utilisateur</label>
+						<input type="text" class="form-control" id="txtUsername" name="username" placeholder="Nom d'utilisateur">
+					</div>
+					<div class="form-group">
+						<label for="txtPasword">Mot de passe</label>
+						<input type="password" class="form-control" id="txtPassword" name="password" placeholder="Mot de passe">
+					</div>
+					<button type="submit" class="btn btn-default">Envoyer</button>
+				</form>
+			</div>
 		</div>
 		<?php
 	}
