@@ -1,4 +1,4 @@
-package pgm;
+package Client.pgm;
 
 /**
  * Created by Ornidon on 11.06.2016.

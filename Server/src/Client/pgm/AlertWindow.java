@@ -1,4 +1,4 @@
-package pgm;
+package Client.pgm;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

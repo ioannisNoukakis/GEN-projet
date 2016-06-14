@@ -1,4 +1,4 @@
-package pgm;
+package Client.pgm;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
