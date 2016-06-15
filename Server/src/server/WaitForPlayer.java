@@ -1,5 +1,6 @@
 package server;
 
+import Shared.Protocol.ChooseCharacter;
 import Shared.Protocol.Connect;
 import Shared.Protocol.MiniPersonnage;
 import Shared.Protocol.SendCharacterData;
@@ -27,6 +28,26 @@ public class WaitForPlayer extends Thread {
     public void run() {
         try {
             ResultSet result;
+            Object o = in.readObject();
+            if(o.getClass() != Connect.class) {
+                throw new Exception("Not the class i expected");
+            }
+
+            Connect c = (Connect) o;
+            result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
+
+            //la on vérifie le mot de passe si c'est bon sinon on l'inscrit
+            if(!(result.next() && result.getString("motDePasse").equals(c.getPassword())))
+            {
+                MySQLUtility.updateQuery("INSERT INTO Utilisateur(pseudonyme, motDePasse, adresseIP, banni) " +
+                        "VALUES(?,?,?,?,?,?,?)",
+                        c.getName(),
+                        c.getPassword(),
+                        socket.getInetAddress().getHostAddress(),
+                        "0");
+            }
+            result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
+            result.next();
 
             //on envoie les personnages à l'utilisateur
             result = MySQLUtility.doQuery("SELECT * FROM Personnage");
@@ -49,42 +70,26 @@ public class WaitForPlayer extends Thread {
             }
             out.writeObject(new SendCharacterData(list));
 
-            System.out.println("Wait for player choice");
-            // Réception du choix de perso
-            Object o = in.readObject();
-            if(o.getClass() == Connect.class)
-            {
-                Connect c = (Connect) o;
-
-                //On s'inscrit à la base de données si besoin
-                result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
-
-                //la on vérifie le mot de passe si c'est bon sinon on l'inscrit
-                if(result.next() && result.getString("motDePasse").equals(c.getPassword()))
-                {
-                    MySQLUtility.updateQuery("UPDATE Utilisateur SET ID_PERSONNAGE=? WHERE pseudonyme=?",
-                            c.getIdPersonnage(), c.getName());
-                }
-                else
-                {
-                    MySQLUtility.updateQuery("INSERT INTO Utilisateur(ID_PERSONNAGE," +
-                            " pseudonyme, motDePasse, adresseIP, banni, pv, mana) " +
-                            "VALUES(?,?,?,?,?,?,?)",
-                            c.getIdPersonnage(),
-                            c.getName(),
-                            c.getPassword(),
-                            socket.getInetAddress().getHostAddress(),
-                            "0", 0, 0);
-                }
-                result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
-                result.next();
-
-                Fighter fighter = new Fighter(socket, c.getIdPersonnage(), result.getInt("ID_UTILISATEUR"), out, in);
-                Lobby.getIntance().addFighter(fighter);
-                Logs.writeMessage("Player registered successfully");
+            //on recoit son choix de personnage
+            o = in.readObject();
+            if(o.getClass() != ChooseCharacter.class) {
+                throw new Exception("Not the class i expected");
             }
+
+            Fighter fighter = new Fighter(socket, ((ChooseCharacter)o).getIdPersonnage(), result.getInt("ID_UTILISATEUR"), out, in);
+            Lobby.getIntance().addFighter(fighter);
+            Logs.writeMessage("Player registered successfully");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
+/**
+ * if(result.next() && result.getString("motDePasse").equals(c.getPassword()))
+ {
+ MySQLUtility.updateQuery("UPDATE Utilisateur SET ID_PERSONNAGE=? WHERE pseudonyme=?",
+ c.getIdPersonnage(), c.getName());
+ }
+ */

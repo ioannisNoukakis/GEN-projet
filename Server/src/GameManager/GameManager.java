@@ -42,7 +42,7 @@ public class GameManager {
         Scanner x = new Scanner(System.in);
         int perso = Integer.parseInt(x.next());
 
-        out.writeObject(new Connect(userName, password, perso));
+        out.writeObject(new Connect(userName, password));
 
         System.out.println("Joining Game...");
     }

@@ -8,12 +8,10 @@ import java.io.Serializable;
 public class Connect implements Serializable {
     private String name;
     private String password;
-    private int idPersonnage;
 
-    public Connect(String name, String password, int idPersonnage) {
+    public Connect(String name, String password) {
         this.name = name;
         this.password = password;
-        this.idPersonnage = idPersonnage;
     }
 
     public String getName() {
@@ -22,9 +20,5 @@ public class Connect implements Serializable {
 
     public String getPassword() {
         return password;
-    }
-
-    public int getIdPersonnage() {
-        return idPersonnage;
     }
 }
