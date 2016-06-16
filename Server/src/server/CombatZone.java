@@ -27,7 +27,7 @@ public class CombatZone extends Thread {
             String lastAttack = "";
             int lastHitDamage = 0;
             int i = 0;
-            Fighter currentFighter;
+            Fighter attacker, defenser;
 
             Combat combat;
             fighterOne.getOut().writeObject(new ServerResponse(true));
@@ -61,37 +61,39 @@ public class CombatZone extends Thread {
                 fighterTwo.getOut().writeObject(new GameState(p2, p1, lastAttack, lastHitDamage, !playerOne, i));
 
                 if (playerOne) {
-                    currentFighter = fighterOne;
+                    attacker = fighterOne;
+                    defenser = fighterTwo;
                 } else {
-                    currentFighter = fighterTwo;
+                    attacker = fighterTwo;
+                    defenser = fighterOne;
                 }
 
-                Object o = currentFighter.getIn().readObject();
+                Object o = attacker.getIn().readObject();
                 if (!(o.getClass() == MakeAction.class))
                     throw new Exception("Not the object i expected.");
 
                 MakeAction mka = (MakeAction) o;
-                combat = new Combat(fighterOne, fighterTwo, fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()));
-                lastAttack = fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()).getNom();
+                combat = new Combat(attacker, defenser, attacker.getPersonnage().getCompetence(mka.getNumCompetence()));
+                lastAttack = attacker.getPersonnage().getCompetence(mka.getNumCompetence()).getNom();
 
                 lastHitDamage = combat.getLastDegats();
                 playerOne = !playerOne;
                 i++;
             } while (!combat.finCombat());
 
-            if(fighterOne.getPersonnage().getPointDeVie() == 0)
+            if(attacker.getPersonnage().getPointDeVie() == 0)
             {
                 MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
-                        i, fighterOne.getId());
-                fighterOne.getOut().writeObject(new EndBattle(false));
-                fighterTwo.getOut().writeObject(new EndBattle(true));
+                        i, attacker.getId());
+                attacker.getOut().writeObject(new EndBattle(false));
+                defenser.getOut().writeObject(new EndBattle(true));
             }
             else
             {
                 MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
-                        i, fighterTwo.getId());
-                fighterOne.getOut().writeObject(new EndBattle(true));
-                fighterTwo.getOut().writeObject(new EndBattle(false));
+                        i, defenser.getId());
+                attacker.getOut().writeObject(new EndBattle(true));
+                defenser.getOut().writeObject(new EndBattle(false));
             }
 
         } catch (Exception e) {

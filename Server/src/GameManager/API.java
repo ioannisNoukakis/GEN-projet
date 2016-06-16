@@ -39,7 +39,6 @@ public class API {
                     } catch (Exception e) {
                         break;
                     }
-                    System.out.println("Update ok");
 
                     if (o.getClass() == GameState.class) {
 
@@ -67,6 +66,7 @@ public class API {
                             System.out.println("VICTORY!");
                         else
                             System.out.println("YOU HAVE BEEN DEFEATED!");
+                        
                         break;
                     } else {
                         throw new RuntimeException("Not the object i expected.");
