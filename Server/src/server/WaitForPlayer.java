@@ -1,9 +1,7 @@
 package server;
 
-import Shared.Protocol.ChooseCharacter;
-import Shared.Protocol.Connect;
-import Shared.Protocol.MiniPersonnage;
-import Shared.Protocol.SendCharacterData;
+import Shared.Protocol.*;
+import com.mysql.fabric.Server;
 import server.logic_Pers.Personnage;
 import utility.Logs;
 import utility.MySQLUtility;
@@ -31,7 +29,7 @@ public class WaitForPlayer extends Thread {
         try {
             ResultSet result;
             Object o = in.readObject();
-            if(o.getClass() != Connect.class) {
+            if (o.getClass() != Connect.class) {
                 throw new Exception("Not the class i expected");
             }
 
@@ -39,14 +37,17 @@ public class WaitForPlayer extends Thread {
             result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
 
             //la on vérifie le mot de passe si c'est bon sinon on l'inscrit
-            if(!(result.next() && result.getString("motDePasse").equals(c.getPassword())))
-            {
+            if (!result.next()) {
                 MySQLUtility.updateQuery("INSERT INTO Utilisateur(pseudonyme, motDePasse, adresseIP, banni) " +
-                        "VALUES(?, ?, ?, ?)",
+                                "VALUES(?, ?, ?, ?)",
                         c.getName(),
                         c.getPassword(),
                         socket.getInetAddress().getHostAddress(),
                         "0");
+            } else if (!result.getString("motDePasse").equals(c.getPassword())) {
+                //mauvais mot de passe
+                out.writeObject(new ServerResponse(false));
+                return;
             }
             result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
             result.next();
@@ -57,34 +58,31 @@ public class WaitForPlayer extends Thread {
 
             //on recoit son choix de personnage
             o = in.readObject();
-            if(o.getClass() != ChooseCharacter.class) {
+            if (o.getClass() != ChooseCharacter.class) {
                 throw new Exception("Not the class i expected");
             }
 
             //Mise à jour d'une statistique
             MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeSelection = nombreDeSelection+1 WHERE ID_PERSONNAGE=?",
-                    ((ChooseCharacter)o).getIdPersonnage());
+                    ((ChooseCharacter) o).getIdPersonnage());
 
-            Fighter fighter = new Fighter(socket, ((ChooseCharacter)o).getIdPersonnage(), userID, out, in);
+            Fighter fighter = new Fighter(socket, ((ChooseCharacter) o).getIdPersonnage(), userID, out, in);
             Lobby.getIntance().addFighter(fighter);
-            Logs.writeMessage("Player registered successfully (id: " + userID +")");
+            Logs.writeMessage("Player registered successfully (id: " + userID + ")");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void makePersoList(ObjectOutputStream out) throws Exception
-    {
+    public static void makePersoList(ObjectOutputStream out) throws Exception {
         ResultSet result = MySQLUtility.doQuery("SELECT * FROM Personnage");
         LinkedList<MiniPersonnage> list = new LinkedList<>();
-        while(result.next())
-        {
+        while (result.next()) {
             String[] comp = new String[4];
-            for(int i = 0; i < 4; i++)
-            {
+            for (int i = 0; i < 4; i++) {
                 ResultSet competence = MySQLUtility.doQuery("SELECT * FROM Competence WHERE NOM_COMPETENCE=?",
-                        result.getString("NOM_COMPETENCE" + String.valueOf(i+1)));
+                        result.getString("NOM_COMPETENCE" + String.valueOf(i + 1)));
                 competence.next();
                 comp[i] = i + " : " + competence.getString("NOM_COMPETENCE");
             }

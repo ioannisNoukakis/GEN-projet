@@ -1,5 +1,6 @@
 package GameManager;
 
+import Client.pgm.AlertWindow;
 import Client.pgm.FightView;
 import Client.pgm.GameAlerts.AToiDeJouer;
 import Client.pgm.GameView;
@@ -95,7 +96,8 @@ public class API {
 
         Object o = in.readObject();
         if (o.getClass() != SendCharacterData.class) {
-            throw new RuntimeException("Not the class i expected");
+            AlertWindow.create("Error while connecting: ", "Wrong password");
+            return null;
         }
 
         return (SendCharacterData) o;

@@ -2,6 +2,7 @@ package Client.pgm;
 
 import GameManager.API;
 import Shared.Protocol.SendCharacterData;
+import Shared.Protocol.ServerResponse;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -43,7 +44,11 @@ public class Connect{
         connectButton.setOnAction(event -> {
             try {
                 SendCharacterData data = api.connect(nameInput.getText(), passwordInput.getText());
-                GameView.changeScene(Menu.create(data, api));
+                if(data != null) {
+                    GameView.changeScene(Menu.create(data, api));
+                }
+                else
+                    GameView.changeScene(Connect.create(api));
             }
             catch(Exception e) {
                 // else create an alertwindow;
