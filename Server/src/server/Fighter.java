@@ -19,52 +19,61 @@ public class Fighter {
         this.in = in;
         this.out = out;
 
-        ResultSet perso = MySQLUtility.doQuery("SELECT * FROM Personnage WHERE ID_PERSONNAGE=?", idPersonnage);
-        perso.next();
+        personnage = Fighter.makePersonnage(idPersonnage);
+    }
 
-        ResultSet statsP = MySQLUtility.doQuery("SELECT * FROM StatistiquesPrincipales WHERE NOM_RACE=?", perso.getString("NOM_RACE"));
-        statsP.next();
-        StatsPrincipales statsPrincipales = new StatsPrincipales(statsP.getInt("strenght"),
-                statsP.getInt("intelligence"),
-                statsP.getInt("agilite"),
-                statsP.getInt("constitution"),
-                statsP.getInt("vigueurMana"));
+    public static Personnage makePersonnage(int idPersonnage) {
+        try {
+            ResultSet perso = MySQLUtility.doQuery("SELECT * FROM Personnage WHERE ID_PERSONNAGE=?", idPersonnage);
+            perso.next();
 
-        ResultSet statsS = MySQLUtility.doQuery("SELECT * FROM StatistiquesSecondaires WHERE NOM_CLASSE=?", perso.getString("NOM_CLASSE"));
-        statsS.next();
-        StatsSecondaires statsSecondaires = new StatsSecondaires(statsS.getInt("mele"),
-                statsS.getInt("projectile"),
-                statsS.getInt("bouclier"),
-                statsS.getInt("feu"),
-                statsS.getInt("glace"),
-                statsS.getInt("divin"),
-                statsS.getInt("esquive"),
-                statsS.getInt("touche"),
-                statsS.getInt("vitesse"),
-                statsS.getInt("resistancePhysique"),
-                statsS.getInt("resistanceElementaire"),
-                statsS.getInt("resistanceDivine"));
+            ResultSet statsP = MySQLUtility.doQuery("SELECT * FROM StatistiquesPrincipales WHERE NOM_RACE=?", perso.getString("NOM_RACE"));
+            statsP.next();
+            StatsPrincipales statsPrincipales = new StatsPrincipales(statsP.getInt("strenght"),
+                    statsP.getInt("intelligence"),
+                    statsP.getInt("agilite"),
+                    statsP.getInt("constitution"),
+                    statsP.getInt("vigueurMana"));
 
-        Competence[] tabCompetence = new Competence[4];
-        for(int i = 0; i < 4; i++)
+            ResultSet statsS = MySQLUtility.doQuery("SELECT * FROM StatistiquesSecondaires WHERE NOM_CLASSE=?", perso.getString("NOM_CLASSE"));
+            statsS.next();
+            StatsSecondaires statsSecondaires = new StatsSecondaires(statsS.getInt("mele"),
+                    statsS.getInt("projectile"),
+                    statsS.getInt("bouclier"),
+                    statsS.getInt("feu"),
+                    statsS.getInt("glace"),
+                    statsS.getInt("divin"),
+                    statsS.getInt("esquive"),
+                    statsS.getInt("touche"),
+                    statsS.getInt("vitesse"),
+                    statsS.getInt("resistancePhysique"),
+                    statsS.getInt("resistanceElementaire"),
+                    statsS.getInt("resistanceDivine"));
+
+            Competence[] tabCompetence = new Competence[4];
+            for (int i = 0; i < 4; i++) {
+                ResultSet competence = MySQLUtility.doQuery("SELECT * FROM Competence WHERE NOM_COMPETENCE=?",
+                        perso.getString("NOM_COMPETENCE" + String.valueOf(i + 1)));
+                competence.next();
+                tabCompetence[i] = new Competence(competence.getString("NOM_COMPETENCE"),
+                        i == 0,
+                        competence.getInt("cout"),
+                        competence.getInt("cooldown"),
+                        competence.getInt("degats"),
+                        Competence.TypeDegats.valueOf(competence.getString("typeDeDegats")));
+            }
+            return new Personnage(perso.getInt("ID_PERSONNAGE"),
+                    perso.getString("nom"),
+                    new Race(perso.getString("NOM_RACE"), statsPrincipales),
+                    new Classe(perso.getString("NOM_CLASSE"), statsSecondaires),
+                    statsPrincipales,
+                    statsSecondaires,
+                    tabCompetence);
+        } catch (Exception e)
         {
-            ResultSet competence = MySQLUtility.doQuery("SELECT * FROM Competence WHERE NOM_COMPETENCE=?",
-                    perso.getString("NOM_COMPETENCE" + String.valueOf(i+1)));
-            competence.next();
-            tabCompetence[i] = new Competence(competence.getString("NOM_COMPETENCE"),
-                    i == 0,
-                    competence.getInt("cout"),
-                    competence.getInt("cooldown"),
-                    competence.getInt("degats"),
-                    Competence.TypeDegats.valueOf(competence.getString("typeDeDegats")));
+            e.printStackTrace();
         }
-        personnage = new Personnage(perso.getInt("ID_PERSONNAGE"),
-                perso.getString("nom"),
-                new Race(perso.getString("NOM_RACE"), statsPrincipales),
-                new Classe(perso.getString("NOM_CLASSE"), statsSecondaires),
-                statsPrincipales,
-                statsSecondaires,
-                tabCompetence);
+        return null;
     }
 
     public ObjectInputStream getIn() {

@@ -1,9 +1,6 @@
 package server;
 
-import Shared.Protocol.EndBattle;
-import Shared.Protocol.GameState;
-import Shared.Protocol.MakeAction;
-import Shared.Protocol.MiniPersonnage;
+import Shared.Protocol.*;
 import server.logic_Fight.Combat;
 import utility.MySQLUtility;
 import utility.RandomUniformGenerator;
@@ -30,13 +27,20 @@ public class CombatZone extends Thread {
             String lastAttack = "";
             int lastHitDamage = 0;
             int i = 0;
+            Fighter currentFighter;
 
             Combat combat;
+            fighterOne.getOut().writeObject(new ServerResponse(true));
+            fighterTwo.getOut().writeObject(new ServerResponse(true));
             do {
                 //envoyer l'état du jeu aux joueur
                 MiniPersonnage p1 = new MiniPersonnage(fighterOne.getPersonnage().getId(),
                         fighterOne.getPersonnage().getPointDeVie(),
                         fighterOne.getPersonnage().getPointVigMana(),
+                        fighterOne.getPersonnage().getStatsPrinc().getForce(),
+                        fighterOne.getPersonnage().getStatsPrinc().getAgitlite(),
+                        fighterOne.getPersonnage().getStatsPrinc().getIntelligence(),
+                        fighterOne.getPersonnage().getStatsPrinc().getConstitution(),
                         fighterOne.getPersonnage().getNom(),
                         fighterOne.getPersonnage().getRace(),
                         fighterOne.getPersonnage().getClasse(),
@@ -44,6 +48,10 @@ public class CombatZone extends Thread {
                 MiniPersonnage p2 = new MiniPersonnage(fighterTwo.getPersonnage().getId(),
                         fighterTwo.getPersonnage().getPointDeVie(),
                         fighterTwo.getPersonnage().getPointVigMana(),
+                        fighterTwo.getPersonnage().getStatsPrinc().getForce(),
+                        fighterTwo.getPersonnage().getStatsPrinc().getAgitlite(),
+                        fighterTwo.getPersonnage().getStatsPrinc().getIntelligence(),
+                        fighterTwo.getPersonnage().getStatsPrinc().getConstitution(),
                         fighterTwo.getPersonnage().getNom(),
                         fighterTwo.getPersonnage().getRace(),
                         fighterTwo.getPersonnage().getClasse(),
@@ -53,22 +61,18 @@ public class CombatZone extends Thread {
                 fighterTwo.getOut().writeObject(new GameState(p2, p1, lastAttack, lastHitDamage, !playerOne, i));
 
                 if (playerOne) {
-                    Object o = fighterOne.getIn().readObject();
-                    if (!(o.getClass() == MakeAction.class))
-                        throw new Exception("Not the object i expected.");
-
-                    MakeAction mka = (MakeAction) o;
-                    combat = new Combat(fighterOne, fighterTwo, fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()));
-                    lastAttack = fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()).getNom();
+                    currentFighter = fighterOne;
                 } else {
-                    Object o = fighterTwo.getIn().readObject();
-                    if (!(o.getClass() == MakeAction.class))
-                        throw new Exception("Not the object i expected.");
-
-                    MakeAction mka = (MakeAction) o;
-                    combat = new Combat(fighterTwo, fighterOne, fighterTwo.getPersonnage().getCompetence(mka.getNumCompetence()));
-                    lastAttack = fighterTwo.getPersonnage().getCompetence(mka.getNumCompetence()).getNom();
+                    currentFighter = fighterTwo;
                 }
+
+                Object o = currentFighter.getIn().readObject();
+                if (!(o.getClass() == MakeAction.class))
+                    throw new Exception("Not the object i expected.");
+
+                MakeAction mka = (MakeAction) o;
+                combat = new Combat(fighterOne, fighterTwo, fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()));
+                lastAttack = fighterOne.getPersonnage().getCompetence(mka.getNumCompetence()).getNom();
 
                 lastHitDamage = combat.getLastDegats();
                 playerOne = !playerOne;
@@ -84,7 +88,7 @@ public class CombatZone extends Thread {
             }
             else
             {
-                MySQLUtility.updateQuery("UPDATE Combat SET nombreDeTour=?, ID_GAGNANT=?",
+                MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
                         i, fighterTwo.getId());
                 fighterOne.getOut().writeObject(new EndBattle(true));
                 fighterTwo.getOut().writeObject(new EndBattle(false));
@@ -93,5 +97,6 @@ public class CombatZone extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

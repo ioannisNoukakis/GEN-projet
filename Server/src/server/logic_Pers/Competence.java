@@ -62,10 +62,13 @@ public class Competence {
    public boolean getEstPrincipale(){
       return estPrincipale;
    }
-   
 
    @Override
    public String toString() {
+      return nom;
+   }
+
+   public String print() {
       String s = "";
       if (estPrincipale == true) {
          s = "Attauque principale";

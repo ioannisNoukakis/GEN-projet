@@ -4,6 +4,7 @@ import Shared.Protocol.ChooseCharacter;
 import Shared.Protocol.Connect;
 import Shared.Protocol.MiniPersonnage;
 import Shared.Protocol.SendCharacterData;
+import server.logic_Pers.Personnage;
 import utility.Logs;
 import utility.MySQLUtility;
 
@@ -40,7 +41,7 @@ public class WaitForPlayer extends Thread {
             if(!(result.next() && result.getString("motDePasse").equals(c.getPassword())))
             {
                 MySQLUtility.updateQuery("INSERT INTO Utilisateur(pseudonyme, motDePasse, adresseIP, banni) " +
-                        "VALUES(?,?,?,?,?,?,?)",
+                        "VALUES(?, ?, ?, ?)",
                         c.getName(),
                         c.getPassword(),
                         socket.getInetAddress().getHostAddress(),
@@ -48,6 +49,7 @@ public class WaitForPlayer extends Thread {
             }
             result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
             result.next();
+            int userID = result.getInt("ID_UTILISATEUR");
 
             //on envoie les personnages à l'utilisateur
             result = MySQLUtility.doQuery("SELECT * FROM Personnage");
@@ -62,7 +64,14 @@ public class WaitForPlayer extends Thread {
                     competence.next();
                     comp[i] = i + " : " + competence.getString("NOM_COMPETENCE");
                 }
-                list.add(new MiniPersonnage(result.getInt("ID_PERSONNAGE"), 0, 0,
+                Personnage tmp = Fighter.makePersonnage(result.getInt("ID_PERSONNAGE"));
+                list.add(new MiniPersonnage(tmp.getId(),
+                        tmp.getPointDeVie(),
+                        tmp.getPointVigMana(),
+                        tmp.getStatsPrinc().getForce(),
+                        tmp.getStatsPrinc().getAgitlite(),
+                        tmp.getStatsPrinc().getIntelligence(),
+                        tmp.getStatsPrinc().getConstitution(),
                         result.getString("nom"),
                         result.getString("NOM_RACE"),
                         result.getString("NOM_CLASSE"),
@@ -76,20 +85,12 @@ public class WaitForPlayer extends Thread {
                 throw new Exception("Not the class i expected");
             }
 
-            Fighter fighter = new Fighter(socket, ((ChooseCharacter)o).getIdPersonnage(), result.getInt("ID_UTILISATEUR"), out, in);
+            Fighter fighter = new Fighter(socket, ((ChooseCharacter)o).getIdPersonnage(), userID, out, in);
             Lobby.getIntance().addFighter(fighter);
-            Logs.writeMessage("Player registered successfully");
+            Logs.writeMessage("Player registered successfully (id: " + userID +")");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
-
-/**
- * if(result.next() && result.getString("motDePasse").equals(c.getPassword()))
- {
- MySQLUtility.updateQuery("UPDATE Utilisateur SET ID_PERSONNAGE=? WHERE pseudonyme=?",
- c.getIdPersonnage(), c.getName());
- }
- */
