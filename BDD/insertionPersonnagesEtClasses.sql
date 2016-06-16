@@ -35,42 +35,42 @@ VALUES ("Illusionniste", 0, -1, 0, 0, 0, 2, 0, 0, 2, -2, 0, 1);
 INSERT INTO StatistiquesSecondaires(NOM_CLASSE, mele, projectile, bouclier, feu, glace, divin, esquive, touche, vitesse, resistancePhysique, resistanceElementaire, resistanceDivine)
 VALUES ("Paladin", 0, 0, 2, 0, 0, 1, -1, 0, -2, 1, 0, 0);
 
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Baffe baffe", 0, 5, 30, 10, "Melee");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Lancer de crayon", 0, 20, 20, 20, "Projectile");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Coup de bouclier", 0, 15, 10, 30, "Bouclier");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Feux de l'amour", 0, 15, 5, 40, "Feu");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Imposant pic de glace", 0, 5, 10, 50, "Glace");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Pichnette dans ton noeil", 0, 5, 30, 60, "Divin");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Coup de bide", 0, 10, 25, 15, "Melee");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Crachat dégoutant", 0, 5, 15, 15, "Projectile");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Toi pas passer", 0, 20, 20, 30, "Bouclier");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Chili con carne", 0, 15, 15, 40, "Feu");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Lacher d'Olaf", 0, 5, 10, 50, "Glace");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Sainte pelle", 0, 5, 30, 60, "Divin");
 
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Coup d'artichaud", 1, 20, 30, 45, "Melee");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Crayon pointu", 1, 20, 20, 50, "Projectile");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Mon bouclier pour argus!", 1, 15, 20, 30, "Bouclier");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Flames d'Azinoth", 1, 15, 10, 60, "Feu");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Kiss cool FrrRrroid", 1, 5, 40, 30, "Glace");
-INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, cooldown, degats, typeDeDegats)
+INSERT INTO Competence(NOM_COMPETENCE, estPrincipale, cout, facteurPuissance, degats, typeDeDegats)
 VALUES ("Bug", 1, 5, 30, 60, "Divin");
 
 INSERT INTO Personnage(nom, pv, mana, nombreDeSelection, nombreDeMatchGagne, nombreDeMatchPerdu, NOM_RACE, NOM_CLASSE, NOM_COMPETENCE1, NOM_COMPETENCE2, NOM_COMPETENCE3, NOM_COMPETENCE4)

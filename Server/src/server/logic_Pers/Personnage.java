@@ -110,8 +110,8 @@ public class Personnage {
       return pointVigMana;
    }
 
-   public void setPointVigMana(int consommation) {
-      this.pointVigMana += consommation;
+   public void setPointVigMana(int mana) {
+      this.pointVigMana = mana;
    }
 
    public void setNom(String nom) {
