@@ -9,14 +9,31 @@
 	background-color: #f6f6f6;
 }
 
-div.sub {
-	max-height: 360px;
+.sub {
 	overflow-y:auto;
 	overflow-x:none;
 	padding: 24px;
 	margin: 4px;
+	margin-bottom: 24px;
 	border: 1px #888 solid;
 	border-radius: 4px;
+}
+
+.add {
+	height: 360px;
+}
+
+.small {
+	height: 136px;
+}
+
+.perso {
+	height: 332px;
+}
+
+.chart {
+	height: 400px;
+	overflow: hidden;
 }
 
 .subtitle {
@@ -32,11 +49,11 @@ div.admin-header {
 	
 }
 
-div.admin-welcome {
+div.welcome {
 	float:left;
 }
 
-div.disconnect {
+div.side {
 	margin: 24px;
 	float: right;
 	font-size: 1.3em;

@@ -20,11 +20,14 @@
 		?>
 			<div class="container">
 				<div class="row">
-					<div class="admin-welcome">
+					<div class="welcome">
 						<h1>Bonjour <?php print($_SESSION["username"]); ?></h1>
 					</div>
-					<div class="disconnect">
+					<div class="side">
 						<a href="function/disconnection.php">D&eacute;connexion</a>
+					</div>
+					<div class="side">
+						<a href="stats.php">Statistiques</a>
 					</div>
 				</div>
 				<?php if(isset($_GET["error"])){ ?>
@@ -41,7 +44,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<h3>Cr&eacute;er une race</h3>
-						<div class="sub">
+						<div class="sub add">
 							<form name="create-breed" method="post" action="function/createbreed.php">
 								<div class="form-group">
 									<label for="txtBreedName">Nom de la race</label>
@@ -73,7 +76,7 @@
 					</div>
 					<div class="col-md-4">
 						<h3>Cr&eacute;er une classe</h3>
-						<div class="sub">
+						<div class="sub add">
 							<form name="create-class" method="post" action="function/createclass.php">
 								<div class="form-group">
 									<label for="txtClassName">Nom de la classe</label>
@@ -133,7 +136,7 @@
 					</div>
 					<div class="col-md-4">
 						<h3>Cr&eacute;er une comp&eacute;tence</h3>
-						<div class="sub">
+						<div class="sub add">
 							<form name="create-skill" method="post" action="function/createskill.php">
 								<div class="form-group">
 									<label for="txtSkillName">Nom de la comp&eacute;tence</label>
@@ -204,7 +207,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<h3>Supprimer une race</h3>
-						<div class="sub">
+						<div class="sub small">
 							<form name="delete-breed" method="post" action="function/deletebreed.php">
 								<div class="form-group">
 									<select name="breedtodelete" class="form-control" required>
@@ -224,7 +227,7 @@
 					</div>
 					<div class="col-md-4">
 						<h3>Supprimer une classe</h3>
-						<div class="sub">
+						<div class="sub small">
 							<form name="delete-class" method="post" action="function/deleteclass.php">
 								<div class="form-group">
 									<select name="classtodelete" class="form-control" required>
@@ -244,7 +247,7 @@
 					</div>
 					<div class="col-md-4">
 						<h3>Supprimer une comp&eacute;tence</h3>
-						<div class="sub">
+						<div class="sub small">
 							<form name="delete-skill" method="post" action="function/deleteskill.php">
 								<div class="form-group">	
 									<select name="skilltodelete" class="form-control" required>
@@ -269,9 +272,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-md-4">
 						<h3>Bannir un utilisateur</h3>
-						<div class="sub">
+						<div class="sub small">
 							<form name="ban-character" method="post" action="function/banuser.php">
 								<div class="form-group">
 									<select name="usertoban" class="form-control" required>
@@ -288,10 +291,8 @@
 								<button type="submit" class="btn btn-default">Bannir</button>
 							</form>
 						</div>
-					</div>
-					<div class="col-md-3">
 						<h3>Gracier un utilisateur</h3>
-						<div class="sub">
+						<div class="sub small">
 							<form name="pardon-character" method="post" action="function/pardonuser.php">
 								<div class="form-group">
 									<select name="usertopardon" class="form-control" required>
@@ -309,9 +310,9 @@
 							</form>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<h3>Cr&eacute;er un personnage</h3>
-						<div class="sub">
+					<div class="col-md-4">
+						<h3>Cr&eacute;er un perso</h3>
+						<div class="sub perso">
 							<form name="pardon-character" method="post" action="function/createcharacter.php">
 								<div class="form-group">
 									<label for="txtCharacterName">Nom du personnage</label>
@@ -399,9 +400,9 @@
 							</form>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<h3>Supprimer un personnage</h3>
-						<div class="sub">
+					<div class="col-md-4">
+						<h3>Supprimer un perso</h3>
+						<div class="sub small">
 							<form name="pardon-character" method="post" action="function/deletecharacter.php">
 								<div class="form-group">	
 									<select name="charactertodelete" class="form-control" required>
@@ -425,27 +426,40 @@
 	} else {
 		?>
 		<div class="container">
-			<h1>L'Auberge des L&eacute;gendes</h1>
-			<h2>Administration</h2>
-			<div class="connection-form">
-				<?php if(isset($_GET["error"])){ ?>
-				<div class="alert alert-warning alert-dismissible" id="wrongPass">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>Error : </strong> Wrong username or password !
+			<div class="row">
+				<div class="welcome">
+					<h1>L'Auberge des L&eacute;gendes</h1>
 				</div>
-				<?php } ?>
-				<h3>Connexion</h3>
-				<form name="connection" method="post" action="function/connection.php">
-					<div class="form-group">
-						<label for="txtEmail">Nom d'utilisateur</label>
-						<input type="text" class="form-control" id="txtUsername" name="username" placeholder="Nom d'utilisateur">
+				<div class="side">
+					<a href="stats.php">Statistiques</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h2>Connexion</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="connection-form">
+					<?php if(isset($_GET["error"])){ ?>
+					<div class="alert alert-warning alert-dismissible" id="wrongPass">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>Error : </strong> Wrong username or password !
 					</div>
-					<div class="form-group">
-						<label for="txtPasword">Mot de passe</label>
-						<input type="password" class="form-control" id="txtPassword" name="password" placeholder="Mot de passe">
-					</div>
-					<button type="submit" class="btn btn-default">Envoyer</button>
-				</form>
+					<?php } ?>
+					<h3>Connexion</h3>
+					<form name="connection" method="post" action="function/connection.php">
+						<div class="form-group">
+							<label for="txtEmail">Nom d'utilisateur</label>
+							<input type="text" class="form-control" id="txtUsername" name="username" placeholder="Nom d'utilisateur">
+						</div>
+						<div class="form-group">
+							<label for="txtPasword">Mot de passe</label>
+							<input type="password" class="form-control" id="txtPassword" name="password" placeholder="Mot de passe">
+						</div>
+						<button type="submit" class="btn btn-default">Envoyer</button>
+					</form>
+				</div>
 			</div>
 		</div>
 		<?php
