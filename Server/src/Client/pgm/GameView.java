@@ -20,7 +20,7 @@ public class GameView extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        API api = new API("localhost", 8000);
+        API api = new API("localhost", 8000, this);
         primaryStage.setResizable(false);
         window = primaryStage;
         window.setTitle("L'auberge des Légendes");

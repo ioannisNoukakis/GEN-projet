@@ -85,6 +85,14 @@ public class CombatZone extends Thread {
             {
                 MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
                         i, attacker.getId());
+                MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchPerdu = nombreDeMatchPerdu+1 WHERE ID_PERSONNAGE=?",
+                        attacker.getId());
+                MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchGagne = nombreDeMatchGagne+1 WHERE ID_PERSONNAGE=?",
+                        defenser.getId());
+
+                if(attacker.getPersonnage().getRace().equals("Homme Poireau"))
+                    MySQLUtility.updateQuery("UPDATE hommePoireauTue SET nbVictimes = nbVictimes + 1");
+
                 attacker.getOut().writeObject(new EndBattle(false));
                 defenser.getOut().writeObject(new EndBattle(true));
             }
@@ -92,6 +100,10 @@ public class CombatZone extends Thread {
             {
                 MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
                         i, defenser.getId());
+                MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchPerdu = nombreDeMatchPerdu+1 WHERE ID_PERSONNAGE=?",
+                        defenser.getId());
+                MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchGagne = nombreDeMatchGagne+1 WHERE ID_PERSONNAGE=?",
+                        attacker.getId());
                 attacker.getOut().writeObject(new EndBattle(true));
                 defenser.getOut().writeObject(new EndBattle(false));
             }

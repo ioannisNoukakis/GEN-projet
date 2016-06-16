@@ -85,6 +85,10 @@ public class WaitForPlayer extends Thread {
                 throw new Exception("Not the class i expected");
             }
 
+            //Mise à jour d'une statistique
+            MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeSelection = nombreDeSelection+1 WHERE ID_PERSONNAGE=?",
+                    ((ChooseCharacter)o).getIdPersonnage());
+
             Fighter fighter = new Fighter(socket, ((ChooseCharacter)o).getIdPersonnage(), userID, out, in);
             Lobby.getIntance().addFighter(fighter);
             Logs.writeMessage("Player registered successfully (id: " + userID +")");

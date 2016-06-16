@@ -66,3 +66,5 @@ VALUES ("Harim Hurlevent", "Humain", "Mage", "Flames d'Azinoth", "Feux de l'amou
 
 INSERT INTO Personnage(nom,NOM_RACE, NOM_CLASSE, NOM_COMPETENCE1, NOM_COMPETENCE2, NOM_COMPETENCE3, NOM_COMPETENCE4)
 VALUES ("Microsoft", "Homme Poireau", "Guerrier", "Coup d'artichaud", "Baffe baffe", "Lancer de crayon", "Crayon pointu");
+
+INSERT INTO hommepoireautue(nbVictimes) VALUES (0);
