@@ -31,6 +31,7 @@ public class Combat {
       this.f2 = f2;
       this.pOff = f1.getPersonnage();
       this.pDef = f2.getPersonnage();
+      this.pOff.setPointVigMana(pOff.getStatsPrinc().getIntelligence()*2);
       this.attaque = attaque;
       calculBonus(attaque);
       calculDegats();
@@ -43,6 +44,7 @@ public class Combat {
 
    private void calculDegats() throws Exception {
       int degats = 0 ;
+      pOff.setPointVigMana(attaque.getCout());
      if(chanceEsquive() != true){
         degats = (attaque.getDegats()*(10 + attaque.getFacteurPuissance()*(bonusOff-bonusDef))/10);
         pDef.setPointDeVie(pDef.getPointDeVie() - degats);
