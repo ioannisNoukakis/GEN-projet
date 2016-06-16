@@ -10,9 +10,11 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Properties;
 
 /**
  * Created by durza9390 on 02.06.16.
@@ -28,7 +30,11 @@ public class API {
     private GameView gameView;
 
     public API(String hostname, int port, GameView gameView) throws IOException {
-        this.socket = new Socket(hostname, port);
+        Properties properties = new Properties();
+        InputStream propertiesStream = this.getClass().getClassLoader().getResourceAsStream("ressources/app.properties");
+        properties.load(propertiesStream);
+
+        this.socket = new Socket(properties.getProperty("hostname"), Integer.parseInt(properties.getProperty("port")));
         this.gameView = gameView;
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
