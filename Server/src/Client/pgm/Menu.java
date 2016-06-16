@@ -39,10 +39,12 @@ public class Menu {
         GridPane grid = new GridPane();
         //                   haut, droite, bas, gauche
         grid.setPadding(new Insets(40,10,10,40));
-        characterIcon = new ImageView(new Image("ressources/"+ data.getListPersonnage().get(0).getNomPersonnage() +".jpg"));
+
 
         //récupération des personnages
         personnages = data.getListPersonnage();
+
+        characterIcon = new ImageView(new Image("ressources/"+ personnages.get(index).getNomPersonnage() +".jpg"));
 
         grid.setHgap(30);
         grid.setVgap(10);

@@ -67,7 +67,7 @@ public class API {
                                 FightView.getLogs().setText(FightView.getLogs().getText() + "Your opponent: \n");
                                 FightView.getLogs().setText(FightView.getLogs().getText() + gameState.getP2().toString() + "\n\n");
                                 FightView.getLogs().setText(FightView.getLogs().getText() + "----------------------------------------------------\n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "last hit was : " + gameState.getLastAttack() + " and delt " + gameState.getLastHitDamage() + "\n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "last hit was : " + gameState.getLastAttack() + " and has done " + gameState.getLastHitDamage() + "\n");
                                 FightView.getLogs().setText(FightView.getLogs().getText() + "----------------------------------------------------\n");
                             }
                         });

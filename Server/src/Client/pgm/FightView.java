@@ -53,7 +53,7 @@ public class FightView {
         GridPane.setConstraints(player1ManaBar,0,2);
         opponentGrid.getChildren().addAll(player1HealthBar,player1ManaBar, player1Name);
 
-        ImageView player1Icon = new ImageView(new Image("ressources/" + api.getGameState().getP1().getNomPersonnage()+ ".jpg"));
+        ImageView player1Icon = new ImageView(new Image("ressources/" + api.getGameState().getP2().getNomPersonnage()+ ".jpg"));
         player1Icon.setFitHeight(150);
         player1Icon.setFitWidth(200);
 
@@ -74,7 +74,7 @@ public class FightView {
         GridPane.setConstraints(player2ManaBar,0,2);
         userGrid.getChildren().addAll(player2HealthBar,player2ManaBar, player2Name);
 
-        ImageView player2Icon = new ImageView(new Image("ressources/" + api.getGameState().getP2().getNomPersonnage()+ ".jpg"));
+        ImageView player2Icon = new ImageView(new Image("ressources/" + api.getGameState().getP1().getNomPersonnage()+ ".jpg"));
         player2Icon.setFitHeight(150);
         player2Icon.setFitWidth(200);
 
