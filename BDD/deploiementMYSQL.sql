@@ -42,7 +42,7 @@ CREATE TABLE Competence(
 	NOM_COMPETENCE CHAR(30) NOT NULL,
     estPrincipale boolean NOT NULL,
     cout INT NOT NULL,
-    cooldown INT NOT NULL,
+    facteurPuissance INT NOT NULL,
     degats INT NOT NULL,
     typeDeDegats CHAR(30) NOT NULL,
     
