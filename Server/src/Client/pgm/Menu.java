@@ -25,9 +25,11 @@ import java.util.List;
  */
 public class Menu {
 
+
     private static List<MiniPersonnage> personnages;
     private static final int BUTTON_SIZE = 70;
     private static int index = 0;
+    private static ImageView characterIcon = new ImageView(new Image("ressources/Harim Hurlevent.jpg"));
 
     //labels
     private static Label playerRace, playerClasse, playerStrength, playerAgility, playerIntelect,
@@ -44,7 +46,7 @@ public class Menu {
         grid.setHgap(30);
         grid.setVgap(10);
 
-        ImageView characterIcon = new ImageView(new Image("ressources/jana.jpeg"));
+
         characterIcon.setFitHeight(360);
         characterIcon.setFitWidth(300);
         GridPane.setConstraints(characterIcon,0, 0);
@@ -166,6 +168,7 @@ public class Menu {
         playerAttS1.setText(personnages.get(index).getCompetences()[1]);
         playerAttS2.setText(personnages.get(index).getCompetences()[2]);
         playerAttS3.setText(personnages.get(index).getCompetences()[3]);
+        characterIcon.setImage(new Image("ressources/" + personnages.get(index).getNomPersonnage()+ ".jpg"));
     }
 
 }
