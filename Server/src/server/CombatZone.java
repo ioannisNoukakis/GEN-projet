@@ -2,6 +2,7 @@ package server;
 
 import Shared.Protocol.*;
 import server.logic_Fight.Combat;
+import server.logic_Pers.Personnage;
 import utility.MySQLUtility;
 import utility.RandomUniformGenerator;
 
@@ -107,6 +108,8 @@ public class CombatZone extends Thread {
                 attacker.getOut().writeObject(new EndBattle(true));
                 defenser.getOut().writeObject(new EndBattle(false));
             }
+            WaitForPlayer.makePersoList(fighterOne.getOut());
+            WaitForPlayer.makePersoList(fighterTwo.getOut());
 
         } catch (Exception e) {
             e.printStackTrace();

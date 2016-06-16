@@ -26,7 +26,7 @@ public class ImgView {
         grid.setHgap(30);
         grid.setVgap(10);
 
-        javafx.scene.image.ImageView characterIcon = new javafx.scene.image.ImageView(new Image("ressources/"+ img));
+        javafx.scene.image.ImageView characterIcon = new javafx.scene.image.ImageView(new Image(img));
 
         GridPane.setConstraints(characterIcon,0, 0);
 
