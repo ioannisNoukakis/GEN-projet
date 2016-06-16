@@ -70,10 +70,14 @@ public class API {
                         EndBattle end = (EndBattle) o;
                         if (end.isWinner()) {
                             System.out.println("VICTORY!");
-                            gameView.changeScene(ImgView.create(API.this, "ressources/victory.jpg"));
+                            Platform.runLater(() -> {
+                                gameView.changeScene(ImgView.create(API.this, "ressources/victory.jpg"));
+                            });
                         } else {
                             System.out.println("YOU HAVE BEEN DEFEATED!");
-                            gameView.changeScene(ImgView.create(API.this, "ressources/dead.jpg"));
+                            Platform.runLater(() -> {
+                                gameView.changeScene(ImgView.create(API.this, "ressources/dead.jpg"));
+                            });
                         }
 
                         break;

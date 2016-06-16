@@ -26,11 +26,27 @@
       <file leaf-file-name="WaitForPlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/WaitForPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="96" column="32" selection-start-line="96" selection-start-column="32" selection-end-line="96" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="false" />
               </folding>
+=======
+            <state relative-caret-position="36">
+              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChooseCharacter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Shared/Protocol/ChooseCharacter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
             </state>
           </provider>
         </entry>
@@ -38,21 +54,38 @@
       <file leaf-file-name="API.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GameManager/API.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="71" column="59" selection-start-line="71" selection-start-column="59" selection-end-line="71" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
+=======
+            <state relative-caret-position="130">
+              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#5184#5185#0" expanded="true" />
+                <element signature="e#5235#5236#0" expanded="true" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImgView.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ImgView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client/pgm/ImgView.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
               <folding />
+=======
+            <state relative-caret-position="212">
+              <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
             </state>
           </provider>
         </entry>
@@ -90,8 +123,13 @@
       <file leaf-file-name="Connect.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/pgm/Connect.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+=======
+            <state relative-caret-position="203">
+              <caret line="44" column="19" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="19" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
               <folding />
             </state>
           </provider>
@@ -100,8 +138,13 @@
       <file leaf-file-name="FightView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Client/pgm/FightView.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.29380766">
               <caret line="55" column="96" selection-start-line="55" selection-start-column="96" selection-end-line="55" selection-end-column="96" />
+=======
+            <state relative-caret-position="121">
+              <caret line="7" column="27" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="27" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
               <folding />
             </state>
           </provider>
@@ -110,10 +153,29 @@
       <file leaf-file-name="CombatZone.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/server/CombatZone.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0">
               <caret line="111" column="26" selection-start-line="111" selection-start-column="26" selection-end-line="111" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="false" />
+              </folding>
+=======
+            <state relative-caret-position="266">
+              <caret line="111" column="50" selection-start-line="111" selection-start-column="50" selection-end-line="111" selection-end-column="50" />
+              <folding />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SendCharacterData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Shared/Protocol/SendCharacterData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+              <folding>
+                <element signature="e#307#308#0" expanded="true" />
+                <element signature="e#359#360#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -149,13 +211,22 @@
         <option value="$PROJECT_DIR$/src/Client/pgm/GameAlerts/AToiDeJouer.java" />
         <option value="$PROJECT_DIR$/src/Client/pgm/CharacterBars.java" />
         <option value="$PROJECT_DIR$/src/server/Lobby.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/Client/pgm/ImgView.java" />
+=======
+        <option value="$PROJECT_DIR$/src/Client/pgm/FightView.java" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
         <option value="$PROJECT_DIR$/src/Client/pgm/GameView.java" />
+        <option value="$PROJECT_DIR$/src/GameManager/API.java" />
+        <option value="$PROJECT_DIR$/src/Client/pgm/ImgView.java" />
         <option value="$PROJECT_DIR$/src/server/WaitForPlayer.java" />
         <option value="$PROJECT_DIR$/src/server/CombatZone.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/GameManager/API.java" />
         <option value="$PROJECT_DIR$/src/Client/pgm/Menu.java" />
         <option value="$PROJECT_DIR$/src/Client/pgm/FightView.java" />
+=======
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
       </list>
     </option>
   </component>
@@ -913,13 +984,21 @@
       <workItem from="1465910998203" duration="3717000" />
       <workItem from="1465972223056" duration="4179000" />
       <workItem from="1466059280935" duration="403000" />
+<<<<<<< HEAD
       <workItem from="1466069164411" duration="26274000" />
       <workItem from="1466099097636" duration="1625000" />
+=======
+      <workItem from="1466069164411" duration="27464000" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="36198000" />
+=======
+    <option name="totallyTimeSpent" value="35763000" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="2760" height="1778" extended-state="6" />
@@ -1189,6 +1268,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Shared/Protocol/SendCharacterData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1196,6 +1276,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
     <entry file="file://$PROJECT_DIR$/src/Shared/Protocol/ServerResponse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1293,7 +1375,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding>
-            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#733#734#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1353,6 +1435,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/server/CombatZone.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1367,10 +1450,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="34" selection-end-column="3" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Shared/Protocol/ChooseCharacter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utility/MySQLUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-86">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/GameManager/API.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1385,10 +1483,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Client/pgm/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/pgm/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="81" column="48" selection-start-line="81" selection-start-column="48" selection-end-line="81" selection-end-column="48" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Client/pgm/CharacterBars.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1401,10 +1514,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/GameManager/API.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5184#5185#0" expanded="true" />
+            <element signature="e#5235#5236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Shared/Protocol/SendCharacterData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding>
+            <element signature="e#307#308#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/pgm/FightView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="27" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/ressources/Microsoft.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1419,15 +1562,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="170" column="107" selection-start-line="170" selection-start-column="31" selection-end-line="170" selection-end-column="107" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Client/pgm/Connect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="44" column="19" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/WaitForPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/CombatZone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="111" column="50" selection-start-line="111" selection-start-column="50" selection-end-line="111" selection-end-column="50" />
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Client/pgm/FightView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.29380766">
           <caret line="55" column="96" selection-start-line="55" selection-start-column="96" selection-end-line="55" selection-end-column="96" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Client/pgm/ImgView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+>>>>>>> 99116fc7dedcd4a6fd1ad8a5e06be62763708e1c
         </state>
       </provider>
     </entry>
