@@ -85,11 +85,11 @@ public class CombatZone extends Thread {
             if(attacker.getPersonnage().getPointDeVie() == 0)
             {
                 MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
-                        i, attacker.getId());
+                        i, attacker.getPersonnage().getId());
                 MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchPerdu = nombreDeMatchPerdu+1 WHERE ID_PERSONNAGE=?",
-                        attacker.getId());
+                        attacker.getPersonnage().getId());
                 MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchGagne = nombreDeMatchGagne+1 WHERE ID_PERSONNAGE=?",
-                        defenser.getId());
+                        defenser.getPersonnage().getId());
 
                 if(attacker.getPersonnage().getRace().equals("Homme Poireau"))
                     MySQLUtility.updateQuery("UPDATE hommePoireauTue SET nbVictimes = nbVictimes + 1");
@@ -100,20 +100,20 @@ public class CombatZone extends Thread {
             else
             {
                 MySQLUtility.updateQuery("INSERT INTO Combat(nombreDeTour, ID_GAGNANT) VALUES(?,?)",
-                        i, defenser.getId());
+                        i, defenser.getPersonnage().getId());
                 MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchPerdu = nombreDeMatchPerdu+1 WHERE ID_PERSONNAGE=?",
-                        defenser.getId());
+                        defenser.getPersonnage().getId());
                 MySQLUtility.updateQuery("UPDATE Personnage SET nombreDeMatchGagne = nombreDeMatchGagne+1 WHERE ID_PERSONNAGE=?",
-                        attacker.getId());
+                        attacker.getPersonnage().getId());
                 attacker.getOut().writeObject(new EndBattle(true));
                 defenser.getOut().writeObject(new EndBattle(false));
             }
-            WaitForPlayer.makePersoList(fighterOne.getOut());
-            WaitForPlayer.makePersoList(fighterTwo.getOut());
+
+            new WaitForPlayer(fighterOne.getIn(), fighterTwo.getOut()).start();
+            new WaitForPlayer(fighterOne.getIn(), fighterTwo.getOut()).start();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

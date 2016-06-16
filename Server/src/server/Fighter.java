@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.sql.ResultSet;
 
 public class Fighter {
+    private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private Personnage personnage;
@@ -18,6 +19,7 @@ public class Fighter {
         this.id = id;
         this.in = in;
         this.out = out;
+        this.socket = socket;
 
         personnage = Fighter.makePersonnage(idPersonnage);
     }
@@ -90,5 +92,9 @@ public class Fighter {
 
     public Personnage getPersonnage() {
         return personnage;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 }

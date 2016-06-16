@@ -24,13 +24,18 @@ public class WaitForPlayer extends Thread {
         in = new ObjectInputStream(socket.getInputStream());
     }
 
+    public WaitForPlayer(ObjectInputStream in, ObjectOutputStream out) throws Exception {
+        this.in = in;
+        this.out = out;
+    }
+
     @Override
     public void run() {
         try {
             ResultSet result;
             Object o = in.readObject();
             if (o.getClass() != Connect.class) {
-                throw new Exception("Not the class i expected");
+                throw new Exception("Not the class i expected. I recived " + o.getClass());
             }
 
             Connect c = (Connect) o;

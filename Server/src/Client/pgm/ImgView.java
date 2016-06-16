@@ -33,10 +33,8 @@ public class ImgView {
         Button menu = new Button("Go to menu");
         menu.setOnAction(event -> {
             try {
-                Object o = api.getIn().readObject();
-                if(o.getClass() != SendCharacterData.class)
-                    throw new RuntimeException("Not the class i expected");
-                GameView.changeScene(Menu.create((SendCharacterData) o, api));
+                SendCharacterData data = api.connect(Connect.userName, Connect.password);
+                GameView.changeScene(Menu.create(data, api));
             } catch (Exception e) {
                 e.printStackTrace();
                 AlertWindow.create("Erreur", "");

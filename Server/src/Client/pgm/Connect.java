@@ -12,12 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.Collections;
+
 /**
  * Created by Ornidon on 07.06.2016.
  */
 public class Connect{
 
-
+    public static String userName, password;
 
     public static Scene create(API api){
 
@@ -43,6 +45,9 @@ public class Connect{
         Button connectButton = new Button("Connect");
         connectButton.setOnAction(event -> {
             try {
+                Connect.userName = nameInput.getText();
+                Connect.password = passwordInput.getText();
+
                 SendCharacterData data = api.connect(nameInput.getText(), passwordInput.getText());
                 if(data != null) {
                     GameView.changeScene(Menu.create(data, api));
