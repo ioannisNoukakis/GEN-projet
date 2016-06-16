@@ -10,6 +10,8 @@ import server.logic_Pers.Competence;
 import server.logic_Pers.Personnage;
 import utility.MySQLUtility;
 
+import java.util.Random;
+
 /**
  *
  * @author User
@@ -44,7 +46,7 @@ public class Combat {
 
    private void calculDegats() throws Exception {
       int degats = 0 ;
-      pOff.setPointVigMana(attaque.getCout());
+      pOff.setPointVigMana(pOff.getPointVigMana() - attaque.getCout());
      if(chanceEsquive() != true){
         degats = (attaque.getDegats()*(10 + attaque.getFacteurPuissance()*(bonusOff-bonusDef))/10);
         pDef.setPointDeVie(pDef.getPointDeVie() - degats);
@@ -72,10 +74,9 @@ public class Combat {
       return combatPerdu;
    }
 
-   private boolean chanceEsquive(){   
-      return estPhysique == true ? 
-              pOff.getStatsSec().getTouche() < pDef.getStatsSec().getEsquive() 
-            : pOff.getStatsSec().getTouche() < pDef.getStatsSec().getVitesse();
+   private boolean chanceEsquive(){
+      Random gen = new Random(System.currentTimeMillis());
+      return gen.nextDouble() < 0.05;
    }
    
    // retourne la valeur de la statistiques qui influence le type de dégats
