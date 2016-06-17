@@ -58,8 +58,12 @@ public class CombatZone extends Thread {
                         fighterTwo.getPersonnage().getClasse(),
                         fighterTwo.getPersonnage().getCompetencesName());
 
+                fighterOne.getOut().reset();
+                fighterTwo.getOut().reset();
                 fighterOne.getOut().writeObject(new GameState(p1, p2, lastAttack, lastHitDamage, playerOne, i));
                 fighterTwo.getOut().writeObject(new GameState(p2, p1, lastAttack, lastHitDamage, !playerOne, i));
+                fighterOne.getOut().flush();
+                fighterTwo.getOut().flush();
 
                 if (playerOne) {
                     attacker = fighterOne;
@@ -109,8 +113,8 @@ public class CombatZone extends Thread {
                 defenser.getOut().writeObject(new EndBattle(false));
             }
 
-            new WaitForPlayer(fighterOne.getIn(), fighterTwo.getOut()).start();
-            new WaitForPlayer(fighterOne.getIn(), fighterTwo.getOut()).start();
+            new WaitForPlayer( fighterOne.getOut(), fighterOne.getIn()).start();
+            new WaitForPlayer( fighterTwo.getOut(), fighterTwo.getIn()).start();
 
         } catch (Exception e) {
             e.printStackTrace();

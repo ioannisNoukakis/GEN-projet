@@ -28,6 +28,13 @@ public class API {
     private AToiDeJouer alerte;
     private Task miseAJourClient;
     private GameView gameView;
+    private Thread thread;
+
+    public API(ObjectOutputStream out, ObjectInputStream in)
+    {
+        this.out = out;
+        this.in = in;
+    }
 
     public API(String hostname, int port, GameView gameView) throws IOException {
         Properties properties = new Properties();
@@ -39,62 +46,6 @@ public class API {
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
         alerte = new AToiDeJouer(1000);
-
-        miseAJourClient = new Task<Void>() {
-            @Override
-            public Void call() {
-                while (true) {
-                    Object o = null;
-                    try {
-                        o = in.readObject();
-                    } catch (Exception e) {
-                        break;
-                    }
-
-                    if (o.getClass() == GameState.class) {
-
-                        gameState = (GameState) o;
-
-                        if (gameState.isMyTurn())
-                            alerte.createAlert();
-
-                        Platform.runLater(() -> {
-                            if (FightView.getLogs() != null) {
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "====================================================\n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "TOUR " + gameState.getTurn() + "\n\n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "Your charcacter: \n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + gameState.getP1().toString() + "\n\n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "Your opponent: \n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + gameState.getP2().toString() + "\n\n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "----------------------------------------------------\n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "last hit was : " + gameState.getLastAttack() + " and has done " + gameState.getLastHitDamage() + "\n");
-                                FightView.getLogs().setText(FightView.getLogs().getText() + "----------------------------------------------------\n");
-                            }
-                        });
-
-                                FightView.update(gameState);
-                    } else if (o.getClass() == EndBattle.class) {
-                        EndBattle end = (EndBattle) o;
-                        if (end.isWinner()) {
-                            System.out.println("VICTORY!");
-                            Platform.runLater(() -> {
-                                gameView.changeScene(ImgView.create(API.this, "ressources/victory.jpg"));
-                            });
-                        } else {
-                            System.out.println("YOU HAVE BEEN DEFEATED!");
-                            Platform.runLater(() -> {
-                                gameView.changeScene(ImgView.create(API.this, "ressources/dead.jpg"));
-                            });
-                        }
-
-                        break;
-                    } else {
-                        throw new RuntimeException("Not the object i expected.");
-                    }
-                }
-                return null;
-            }
-        };
     }
 
     public SendCharacterData connect(String userName, String password) throws Exception {
@@ -134,11 +85,69 @@ public class API {
         } else
             return false;
 
+        miseAJourClient = new Task<Void>() {
+            @Override
+            public Void call() {
+                while (true) {
+                    Object o = null;
+                    try {
+                        o = in.readObject();
+                        System.out.println("UPDATE");
+                    } catch (Exception e) {
+                        break;
+                    }
+
+                    if (o.getClass() == GameState.class) {
+
+                        gameState = (GameState) o;
+
+                        if (gameState.isMyTurn())
+                            alerte.createAlert();
+
+                        Platform.runLater(() -> {
+                            if (FightView.getLogs() != null) {
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "====================================================\n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "TOUR " + gameState.getTurn() + "\n\n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "Your charcacter: \n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + gameState.getP1().toString() + "\n\n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "Your opponent: \n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + gameState.getP2().toString() + "\n\n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "----------------------------------------------------\n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "last hit was : " + gameState.getLastAttack() + " and has done " + gameState.getLastHitDamage() + "\n");
+                                FightView.getLogs().setText(FightView.getLogs().getText() + "----------------------------------------------------\n");
+                            }
+                        });
+
+                        FightView.update(gameState);
+                    } else if (o.getClass() == EndBattle.class) {
+                        EndBattle end = (EndBattle) o;
+                        if (end.isWinner()) {
+                            System.out.println("VICTORY!");
+                            Platform.runLater(() -> {
+                                gameView.changeScene(ImgView.create(API.this, "ressources/victory.jpg"));
+                            });
+                        } else {
+                            System.out.println("YOU HAVE BEEN DEFEATED!");
+                            Platform.runLater(() -> {
+                                gameView.changeScene(ImgView.create(API.this, "ressources/dead.jpg"));
+                            });
+                        }
+
+                        break;
+                    } else {
+                        throw new RuntimeException("Not the object i expected.");
+                    }
+                }
+                return null;
+            }
+        };
+
         return true;
     }
 
     public void start() {
-        new Thread(miseAJourClient).start();
+        thread = new Thread(miseAJourClient);
+        thread.start();
     }
 
     public boolean isMyTurn() {

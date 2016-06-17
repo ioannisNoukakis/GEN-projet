@@ -19,14 +19,16 @@ public class WaitForPlayer extends Thread {
     private ObjectOutputStream out;
 
     public WaitForPlayer(Socket socket) throws Exception {
+        System.out.println("CALL A UN PARAM");
         this.socket = socket;
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
     }
 
-    public WaitForPlayer(ObjectInputStream in, ObjectOutputStream out) throws Exception {
-        this.in = in;
+    public WaitForPlayer(ObjectOutputStream out, ObjectInputStream in) throws Exception {
+        System.out.println("CALL A DEUX PARAM");
         this.out = out;
+        this.in = in;
     }
 
     @Override
