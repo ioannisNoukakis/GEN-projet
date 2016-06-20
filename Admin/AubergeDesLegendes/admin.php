@@ -36,12 +36,12 @@
 							<h1>Bonjour <?php print($_SESSION["username"]); ?></h1>
 							<?php
 								if(isset($_POST['adl-create-breed'])) {
-									if(($_POST["breedname"] != "") 				&& strlen($_POST["breedname"]) <= 30 	
-										&& isset($_POST["breedstrength"]) 		&& strlen($_POST["breedstrength"]) <= 2 		&& is_numeric($_POST["breedstrength"]) 
+									if(($_POST["breedname"] != "") 						&& strlen($_POST["breedname"]) <= 30 					&& strlen($_POST["breedname"]) > 0
+										&& isset($_POST["breedstrength"]) 			&& strlen($_POST["breedstrength"]) <= 2 			&& is_numeric($_POST["breedstrength"]) 
 										&& isset($_POST["breedintelligence"]) 	&& strlen($_POST["breedintelligence"]) <= 2 	&& is_numeric($_POST["breedintelligence"]) 
-										&& isset($_POST["breedagility"]) 		&& strlen($_POST["breedagility"]) <= 2			&& is_numeric($_POST["breedagility"]) 
+										&& isset($_POST["breedagility"]) 				&& strlen($_POST["breedagility"]) <= 2				&& is_numeric($_POST["breedagility"]) 
 										&& isset($_POST["breedconstitution"]) 	&& strlen($_POST["breedconstitution"]) <= 2 	&& is_numeric($_POST["breedconstitution"]) 
-										&& isset($_POST["breedvigour"]) 		&& strlen($_POST["breedvigour"]) <= 2 			&& is_numeric($_POST["breedvigour"])) 
+										&& isset($_POST["breedvigour"]) 				&& strlen($_POST["breedvigour"]) <= 2 				&& is_numeric($_POST["breedvigour"])) 
 									{
 										$stmt = $db->prepare("INSERT INTO statistiquesprincipales VALUES (?, ?, ?, ?, ?, ?);");
 										$stmt->bindParam(1, $breedname);
@@ -62,19 +62,19 @@
 										$createBreedError = "Les donn&eacute;es ins&eacute;r&eacute;es sont invalides";
 									}
 								} else if(isset($_POST['adl-create-class'])) {
-									if(($_POST["classname"] != "") 				&& strlen($_POST["classname"]) <= 30
-										&& isset($_POST["classmelee"]) 			&& strlen($_POST["classmelee"]) <= 2 		&& is_numeric($_POST["classmelee"]) 
+									if(($_POST["classname"] != "") 					&& strlen($_POST["classname"]) <= 30 				&& strlen($_POST["classname"]) > 0
+										&& isset($_POST["classmelee"]) 				&& strlen($_POST["classmelee"]) <= 2 				&& is_numeric($_POST["classmelee"]) 
 										&& isset($_POST["classprojectile"]) 	&& strlen($_POST["classprojectile"]) <= 2 	&& is_numeric($_POST["classprojectile"])
-										&& isset($_POST["classshield"]) 		&& strlen($_POST["classshield"]) <= 2 		&& is_numeric($_POST["classshield"]) 
-										&& isset($_POST["classfire"]) 			&& strlen($_POST["classfire"]) <= 2 		&& is_numeric($_POST["classfire"]) 
-										&& isset($_POST["classice"]) 			&& strlen($_POST["classice"]) <= 2 			&& is_numeric($_POST["classice"]) 
-										&& isset($_POST["classdivine"]) 		&& strlen($_POST["classdivine"]) <= 2 		&& is_numeric($_POST["classdivine"])
-										&& isset($_POST["classdodge"]) 			&& strlen($_POST["classdodge"]) <= 2 		&& is_numeric($_POST["classdodge"]) 
-										&& isset($_POST["classtouch"]) 			&& strlen($_POST["classtouch"]) <= 2 		&& is_numeric($_POST["classtouch"]) 
-										&& isset($_POST["classspeed"]) 			&& strlen($_POST["classspeed"]) <= 2 		&& is_numeric($_POST["classspeed"]) 
+										&& isset($_POST["classshield"]) 			&& strlen($_POST["classshield"]) <= 2 			&& is_numeric($_POST["classshield"]) 
+										&& isset($_POST["classfire"]) 				&& strlen($_POST["classfire"]) <= 2 				&& is_numeric($_POST["classfire"]) 
+										&& isset($_POST["classice"]) 					&& strlen($_POST["classice"]) <= 2 					&& is_numeric($_POST["classice"]) 
+										&& isset($_POST["classdivine"]) 			&& strlen($_POST["classdivine"]) <= 2 			&& is_numeric($_POST["classdivine"])
+										&& isset($_POST["classdodge"]) 				&& strlen($_POST["classdodge"]) <= 2 				&& is_numeric($_POST["classdodge"]) 
+										&& isset($_POST["classtouch"]) 				&& strlen($_POST["classtouch"]) <= 2 				&& is_numeric($_POST["classtouch"]) 
+										&& isset($_POST["classspeed"]) 				&& strlen($_POST["classspeed"]) <= 2 				&& is_numeric($_POST["classspeed"]) 
 										&& isset($_POST["classresphysical"]) 	&& strlen($_POST["classresphysical"]) <= 2 	&& is_numeric($_POST["classresphysical"]) 
 										&& isset($_POST["classreselement"]) 	&& strlen($_POST["classreselement"]) <= 2 	&& is_numeric($_POST["classreselement"]) 
-										&& isset($_POST["classresdivine"]) 		&& strlen($_POST["classresdivine"]) <= 2 	&& is_numeric($_POST["classresdivine"])) 
+										&& isset($_POST["classresdivine"]) 		&& strlen($_POST["classresdivine"]) <= 2 		&& is_numeric($_POST["classresdivine"])) 
 									{
 										$stmt = $db->prepare("INSERT INTO statistiquessecondaires VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 										$stmt->bindParam(1, $classname);
@@ -109,10 +109,10 @@
 										$createClassError = "Les donn&eacute;es ins&eacute;r&eacute;es sont invalides";
 									}
 								} else if(isset($_POST['adl-create-skill'])) {
-									if(($_POST["skillname"] != "") 				&& strlen($_POST["skillname"]) <= 30
-										&& isset($_POST["skillcost"]) 			&& strlen($_POST["skillcost"]) <= 2 		&& is_numeric($_POST["skillcost"]) 
-										&& isset($_POST["skillcooldown"]) 		&& strlen($_POST["skillcooldown"]) <= 2 	&& is_numeric($_POST["skillcooldown"]) 
-										&& isset($_POST["skilldamage"]) 		&& strlen($_POST["skilldamage"]) <= 2 		&& is_numeric($_POST["skilldamage"]) 
+									if(($_POST["skillname"] != "") 					&& strlen($_POST["skillname"]) <= 30 				&& strlen($_POST["skillname"]) > 0
+										&& isset($_POST["skillcost"]) 				&& strlen($_POST["skillcost"]) <= 2 				&& is_numeric($_POST["skillcost"]) 
+										&& isset($_POST["skillcooldown"]) 		&& strlen($_POST["skillcooldown"]) <= 2 		&& is_numeric($_POST["skillcooldown"]) 
+										&& isset($_POST["skilldamage"]) 			&& strlen($_POST["skilldamage"]) <= 2 			&& is_numeric($_POST["skilldamage"]) 
 										&& isset($_POST["skilldamagetype"]) 	&& strlen($_POST["skilldamagetype"]) <= 2 	&& is_numeric($_POST["skilldamagetype"])) 
 									{
 										$stmt = $db->prepare("INSERT INTO competence VALUES (?, ?, ?, ?, ?, ?);");
@@ -205,7 +205,7 @@
 										$pardonUserError = "Veuillez choisir un &eacute;l&eacute;ment &agrave; supprimer";
 									}
 								} else if(isset($_POST['adl-create-character'])) {
-									if($_POST["charactername"] != "" 			&& strlen($_POST["charactername"]) <= 30
+									if($_POST["charactername"] != "" 				&& strlen($_POST["charactername"]) <= 30 && strlen($_POST["charactername"]) > 0
 										&& isset($_POST["characterrace"]) 		&& $_POST["characterrace"] != "" 
 										&& isset($_POST["characterclass"]) 		&& $_POST["characterclass"] != ""
 										&& isset($_POST["characterskill1"]) 	&& $_POST["characterskill1"] != ""

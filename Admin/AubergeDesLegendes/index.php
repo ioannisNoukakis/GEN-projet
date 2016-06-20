@@ -25,14 +25,13 @@
 					$stmt->bindParam(1, $username);
 					
 					$username = htmlentities($_POST["username"], NULL, "ISO-8859-1");
+					//$password = hash('sha256', $_POST["password"], false); // false = out is hexa
 					$stmt->execute();
 					
 					$result = $stmt->fetch(PDO::FETCH_ASSOC);
 					
-					// Create hash to compare
 					$wholePass = hash('sha256', $result["sel"]."".$_POST["password"], false);
 					
-					// Compare "cooked" mdp and username with database ones
 					if(isset($result["motDePasse"]) && $result["pseudonyme"] == $username && $result["motDePasse"] == $wholePass){
 						$_SESSION["username"] = $username;
 						header("Location: admin.php");
