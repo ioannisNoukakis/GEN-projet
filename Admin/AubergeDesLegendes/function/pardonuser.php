@@ -10,11 +10,7 @@
 	} else {
 		$db = new PDO("mysql:host=localhost;dbname=AubergeLegendesBdd", "root", "");
 		
-		$stmt = $db->prepare("UPDATE utilisateur SET banni = 0 WHERE ID_UTILISATEUR = ?;");
-		$stmt->bindParam(1, $usertopardon);
 		
-		$usertopardon = $_POST["usertopardon"];
-		$stmt->execute();
 		
 		$db = null;
 		

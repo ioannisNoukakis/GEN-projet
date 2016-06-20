@@ -10,11 +10,7 @@
 	} else {
 		$db = new PDO("mysql:host=localhost;dbname=AubergeLegendesBdd", "root", "");
 		
-		$stmt = $db->prepare("DELETE FROM competence WHERE NOM_COMPETENCE = ?;");
-		$stmt->bindParam(1, $skilltodelete);
 		
-		$skilltodelete = $_POST["skilltodelete"];
-		$stmt->execute();
 		
 		$db = null;
 		

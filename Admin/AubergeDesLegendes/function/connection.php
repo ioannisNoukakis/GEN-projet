@@ -15,7 +15,7 @@
 		$stmt->bindParam(2, $password);
 		
 		$username = $_POST["username"];
-		$password = $_POST["password"]; // TO SHA1
+		$password = hash('sha256', $_POST["password"], false); // false = out is hexa
 		$stmt->execute();
 		
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);

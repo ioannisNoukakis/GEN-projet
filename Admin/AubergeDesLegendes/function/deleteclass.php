@@ -10,11 +10,7 @@
 	} else {
 		$db = new PDO("mysql:host=localhost;dbname=AubergeLegendesBdd", "root", "");
 		
-		$stmt = $db->prepare("DELETE FROM statistiquessecondaires WHERE NOM_CLASSE = ?;");
-		$stmt->bindParam(1, $classtodelete);
 		
-		$classtodelete = $_POST["classtodelete"];
-		$stmt->execute();
 		
 		$db = null;
 		

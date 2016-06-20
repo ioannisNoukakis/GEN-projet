@@ -10,11 +10,9 @@
 	} else {
 		$db = new PDO("mysql:host=localhost;dbname=AubergeLegendesBdd", "root", "");
 		
-		$stmt = $db->prepare("DELETE FROM statistiquesprincipales WHERE NOM_RACE = ?;");
-		$stmt->bindParam(1, $breedtodelete);
+		print_r($_POST);die();
 		
-		$breedtodelete = $_POST["breedtodelete"];
-		$stmt->execute();
+		
 		
 		$db = null;
 		

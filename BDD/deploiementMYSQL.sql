@@ -5,7 +5,7 @@ USE AubergeLegendesBdd;
 CREATE TABLE Administrateur(
 	ID INT NOT NULL AUTO_INCREMENT,
 	pseudonyme CHAR(30) NOT NULL UNIQUE,
-	motDePasse CHAR(30) NOT NULL,
+	motDePasse CHAR(240) NOT NULL,
 	CONSTRAINT Utilisateur_PK PRIMARY KEY (ID)
 );
 
