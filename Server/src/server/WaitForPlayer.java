@@ -1,16 +1,15 @@
 package server;
 
-import Shared.Protocol.*;
-import com.mysql.fabric.Server;
+import Protocol.*;
 import server.logic_Pers.Personnage;
 import utility.Logs;
 import utility.MySQLUtility;
+import utility.UserDataHandeler;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class WaitForPlayer extends Thread {
@@ -19,14 +18,12 @@ public class WaitForPlayer extends Thread {
     private ObjectOutputStream out;
 
     public WaitForPlayer(Socket socket) throws Exception {
-        System.out.println("CALL A UN PARAM");
         this.socket = socket;
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
     }
 
     public WaitForPlayer(ObjectOutputStream out, ObjectInputStream in) throws Exception {
-        System.out.println("CALL A DEUX PARAM");
         this.out = out;
         this.in = in;
     }
@@ -39,19 +36,14 @@ public class WaitForPlayer extends Thread {
             if (o.getClass() != Connect.class) {
                 throw new Exception("Not the class i expected. I recived " + o.getClass());
             }
-
+            UserDataHandeler userDataHandeler = UserDataHandeler.getInstance();
             Connect c = (Connect) o;
             result = MySQLUtility.doQuery("SELECT * FROM Utilisateur WHERE pseudonyme=?", c.getName());
 
             //la on vérifie le mot de passe si c'est bon sinon on l'inscrit
             if (!result.next()) {
-                MySQLUtility.updateQuery("INSERT INTO Utilisateur(pseudonyme, motDePasse, adresseIP, banni) " +
-                                "VALUES(?, ?, ?, ?)",
-                        c.getName(),
-                        c.getPassword(),
-                        socket.getInetAddress().getHostAddress(),
-                        "0");
-            } else if (!result.getString("motDePasse").equals(c.getPassword())) {
+                userDataHandeler.registerUser(c);
+            } else if (!userDataHandeler.verifyUSer(c)) {
                 //mauvais mot de passe
                 out.writeObject(new ServerResponse(false));
                 return;
@@ -78,7 +70,7 @@ public class WaitForPlayer extends Thread {
             Logs.writeMessage("Player registered successfully (id: " + userID + ")");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("[WaitForPlayer] A player has disconected");
         }
     }
 

@@ -1,30 +1,27 @@
 package server;
 
-import Shared.Protocol.*;
+import Protocol.*;
 import server.logic_Fight.Combat;
-import server.logic_Pers.Personnage;
 import utility.MySQLUtility;
-import utility.RandomUniformGenerator;
 
-import javax.crypto.ExemptionMechanismException;
-import javax.management.BadAttributeValueExpException;
+import java.security.SecureRandom;
 
 public class CombatZone extends Thread {
     private Fighter fighterOne;
     private Fighter fighterTwo;
-    private RandomUniformGenerator RUG;
+    private SecureRandom random;
 
     public CombatZone(Fighter fighterOne, Fighter fighterTwo) {
         this.fighterOne = fighterOne;
         this.fighterTwo = fighterTwo;
-        RUG = new RandomUniformGenerator(System.currentTimeMillis());
+        random = new SecureRandom();
     }
 
     @Override
     public void run() {
         try {
             System.out.println("Combat lancé!");
-            boolean playerOne = (int) RUG.U(0, 1) == 0;
+            boolean playerOne = (int) random.nextInt()%1 == 0;
             String lastAttack = "";
             int lastHitDamage = 0;
             int i = 0;
@@ -117,7 +114,23 @@ public class CombatZone extends Thread {
             new WaitForPlayer( fighterTwo.getOut(), fighterTwo.getIn()).start();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            boolean one = false, two = false;
+            try {
+                fighterOne.getOut().writeObject(new ServerResponse(false));
+                new WaitForPlayer( fighterOne.getOut(), fighterOne.getIn()).start();
+            }
+            catch (Exception e1)
+            {
+                System.err.println("[CombatZone]" + fighterOne.getId() + " has disconected.");
+            }
+            try {
+                fighterTwo.getOut().writeObject(new ServerResponse(false));
+                new WaitForPlayer( fighterTwo.getOut(),fighterTwo.getIn()).start();
+            }
+            catch (Exception e1)
+            {
+                System.err.println("[CombatZone]" + fighterTwo.getId() + " has disconected.");
+            }
         }
     }
 }

@@ -60,7 +60,7 @@ public class Fighter {
                 tabCompetence[i] = new Competence(competence.getString("NOM_COMPETENCE"),
                         i == 0,
                         competence.getInt("cout"),
-                        competence.getInt("cooldown"),
+                        competence.getInt("facteurPuissance"),
                         competence.getInt("degats"),
                         Competence.TypeDegats.valueOf(competence.getString("typeDeDegats")));
             }
