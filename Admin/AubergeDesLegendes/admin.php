@@ -134,13 +134,19 @@
 										$createSkillError = "Les donn&eacute;es ins&eacute;r&eacute;es sont invalides";
 									}
 								} else if(isset($_POST['adl-delete-breed'])) {
+									print_r($_POST);
 									if(isset($_POST["breedtodelete"]) && $_POST["breedtodelete"] != "")
 									{
 										$stmt = $db->prepare("DELETE FROM statistiquesprincipales WHERE NOM_RACE = ?;");
 										$stmt->bindParam(1, $breedtodelete);
 										
-										$breedtodelete = $_POST["breedtodelete"];
+										$breedtodelete = htmlentities($_POST["breedtodelete"], NULL, "ISO-8859-1");
+										
 										$stmt->execute();
+										
+										if($stmt->rowCount() == 0) {
+											$deleteBreedError = "Une erreur est survenue lors de la suppression. V&eacute;rifiez qu'aucun personnage n'utilise cette race.";
+										}
 									} else {
 										$deleteBreedError = "Veuillez choisir un &eacute;l&eacute;ment &agrave; supprimer";
 									}
@@ -150,8 +156,13 @@
 										$stmt = $db->prepare("DELETE FROM statistiquessecondaires WHERE NOM_CLASSE = ?;");
 										$stmt->bindParam(1, $classtodelete);
 										
-										$classtodelete = $_POST["classtodelete"];
+										$classtodelete = htmlentities($_POST["classtodelete"], NULL, "ISO-8859-1");
+										//$classtodelete = $_POST["classtodelete"];
 										$stmt->execute();
+										
+										if($stmt->rowCount() == 0) {
+											$deleteClassError = "Une erreur est survenue lors de la suppression. V&eacute;rifiez qu'aucun personnage n'utilise cette classe.";
+										}
 									} else {
 										$deleteClassError = "Veuillez choisir un &eacute;l&eacute;ment &agrave; supprimer";
 									}
@@ -161,8 +172,12 @@
 										$stmt = $db->prepare("DELETE FROM competence WHERE NOM_COMPETENCE = ?;");
 										$stmt->bindParam(1, $skilltodelete);
 										
-										$skilltodelete = $_POST["skilltodelete"];
+										$skilltodelete = htmlentities($_POST["skilltodelete"], NULL, "ISO-8859-1");
 										$stmt->execute();
+										
+										if($stmt->rowCount() == 0) {
+											$deleteSkillError = "Une erreur est survenue lors de la suppression. V&eacute;rifiez qu'aucun personnage n'utilise cette comp&eacute;tence.";
+										}
 									} else {
 										$deleteSkillError = "Veuillez choisir un &eacute;l&eacute;ment &agrave; supprimer";
 									}
@@ -172,7 +187,7 @@
 										$stmt = $db->prepare("UPDATE utilisateur SET banni = 1 WHERE ID_UTILISATEUR = ?;");
 										$stmt->bindParam(1, $usertoban);
 										
-										$usertoban = $_POST["usertoban"];
+										$usertoban = htmlentities($_POST["usertoban"], NULL, "ISO-8859-1");
 										$stmt->execute();
 									} else {
 										$banUserError = "Veuillez choisir un &eacute;l&eacute;ment &agrave; supprimer";
@@ -183,13 +198,13 @@
 										$stmt = $db->prepare("UPDATE utilisateur SET banni = 0 WHERE ID_UTILISATEUR = ?;");
 										$stmt->bindParam(1, $usertopardon);
 										
-										$usertopardon = $_POST["usertopardon"];
+										$usertopardon = htmlentities($_POST["usertopardon"], NULL, "ISO-8859-1");
 										$stmt->execute();
 									} else {
 										$pardonUserError = "Veuillez choisir un &eacute;l&eacute;ment &agrave; supprimer";
 									}
 								} else if(isset($_POST['adl-create-character'])) {
-									if($_POST["charactername"] != "" 			&& strlen($_POST["skillname"]) <= 30
+									if($_POST["charactername"] != "" 			&& strlen($_POST["charactername"]) <= 30
 										&& isset($_POST["characterrace"]) 		&& $_POST["characterrace"] != "" 
 										&& isset($_POST["characterclass"]) 		&& $_POST["characterclass"] != ""
 										&& isset($_POST["characterskill1"]) 	&& $_POST["characterskill1"] != ""
@@ -207,19 +222,19 @@
 										$stmt->bindParam(7, $characterskill4);
 										
 										$charactername = htmlentities($_POST["charactername"], NULL, "ISO-8859-1");
-										$characterrace = $_POST["characterrace"];
-										$characterclass = $_POST["characterclass"];
-										$characterskill1 = $_POST["characterskill1"];
-										$characterskill2 = $_POST["characterskill2"];
-										$characterskill3 = $_POST["characterskill3"];
-										$characterskill4 = $_POST["characterskill4"];
+										$characterrace = htmlentities($_POST["characterrace"], NULL, "ISO-8859-1");
+										$characterclass = htmlentities($_POST["characterclass"], NULL, "ISO-8859-1");
+										$characterskill1 = htmlentities($_POST["characterskill1"], NULL, "ISO-8859-1");
+										$characterskill2 = htmlentities($_POST["characterskill2"], NULL, "ISO-8859-1");
+										$characterskill3 = htmlentities($_POST["characterskill3"], NULL, "ISO-8859-1");
+										$characterskill4 = htmlentities($_POST["characterskill4"], NULL, "ISO-8859-1");
 										
 										$stmt->execute();
 									} else {
 										$createCharacterError = "Les donn&eacute;es ins&eacute;r&eacute;es sont invalides";
 									}
 								} else if(isset($_POST['adl-delete-character'])) {
-									if(isset($_POST["charactertodelete"]) && $_POST["charactertodelete"] == ""){
+									if(isset($_POST["charactertodelete"]) && $_POST["charactertodelete"] != ""){
 										$stmt = $db->prepare("DELETE FROM personnage WHERE ID_PERSONNAGE = ?;");
 										$stmt->bindParam(1, $charactertodelete);
 										
