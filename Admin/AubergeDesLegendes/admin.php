@@ -144,6 +144,7 @@
 										
 										$stmt->execute();
 										
+										// Error if no data has been deleted
 										if($stmt->rowCount() == 0) {
 											$deleteBreedError = "Une erreur est survenue lors de la suppression. V&eacute;rifiez qu'aucun personnage n'utilise cette race.";
 										}
