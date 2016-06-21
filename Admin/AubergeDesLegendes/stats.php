@@ -19,6 +19,7 @@
 			$numPerso = array();
 			$numSelect = array();
 			
+			$maxNoms = array();
 			$maxTours = array();
 		
 			$hpNoms = array();
@@ -34,25 +35,32 @@
 				$reponse4 = $bdd->query('SELECT nom, nbVictimes FROM hommepoireautue INNER JOIN personnage ON hommepoireautue.ID = personnage.ID_PERSONNAGE ORDER BY nbVictimes DESC;');
 
 				// On affiche chaque entrée une à une
-				while ($donnees = $reponse1->fetch()){
-					array_push($ratioNames, $donnees['nom']);
-					array_push($ratioNum, $donnees['ratio']);
+				if($reponse1 != null) {
+					while ($donnees = $reponse1->fetch()){
+						array_push($ratioNames, $donnees['nom']);
+						array_push($ratioNum, $donnees['ratio']);
+					}
 				}
 				
-				while ($donnees = $reponse2->fetch()) {
-					array_push($numPerso, $donnees['nom']);
-					array_push($numSelect, $donnees['nombreDeSelection']);
+				if($reponse2 != null) {
+					while ($donnees = $reponse2->fetch()) {
+						array_push($numPerso, $donnees['nom']);
+						array_push($numSelect, $donnees['nombreDeSelection']);
+					}
 				}
 				
-				while ($donnees = $reponse3->fetch()) {
-					array_push($maxTours, $donnees['nombreDeTour']);
+				if($reponse3 != null) {
+					while ($donnees = $reponse3->fetch()) {
+						array_push($maxTours, $donnees['nombreDeTour']);
+						array_push($maxNoms, $donnees['nombreDeTour'] . " tours");
+					}
 				}
 				
-				print_r($maxTours);
-				
-				while ($donnees = $reponse4->fetch()) {
-					array_push($hpNoms, $donnees['nom']);
-					array_push($hpNum, $donnees['nbVictimes']);
+				if($reponse4 != null) {
+					while ($donnees = $reponse4->fetch()) {
+						array_push($hpNoms, $donnees['nom']);
+						array_push($hpNum, $donnees['nbVictimes']);
+					}
 				}
 			}
 			catch (Exception $e)
@@ -73,7 +81,7 @@
 					<label>Affichage : <a href="stats.php">Barres</a>&nbsp;/&nbsp;<a href="stats.php?pie">Camembert</a></label>
 				</div>
 				<div class="side">
-					<a href="index.php">&larr; Retour</a>
+					<a href="index.php"><button type="submit" class="btn btn-warning">&larr; Retour</button></a>
 				</div>
 			</div>
 			<div class="row subtitle">
@@ -136,12 +144,14 @@
 									label: 'Prefered',
 									data: <?php print_r(json_encode($numSelect)); ?>,
 									backgroundColor: [
-										'rgba(255, 99, 132, 0.6)',
-										'rgba(54, 162, 235, 0.6)',
 										'rgba(255, 206, 86, 0.6)',
-										'rgba(75, 192, 192, 0.6)',
+										'rgba(54, 162, 235, 0.6)',
 										'rgba(153, 102, 255, 0.6)',
-										'rgba(255, 159, 64, 0.6)'
+										'rgba(75, 192, 192, 0.6)',
+										'rgba(57, 16, 135, 0.6)',
+										'rgba(255, 159, 64, 0.6)',
+										'rgba(255, 99, 132, 0.6)',
+										'rgba(13, 129, 123, 0.6)'
 									]
 								}]
 							},
@@ -171,17 +181,19 @@
 						var myChart = new Chart(ctx, {
 							type: '<?php echo $show ?>',
 							data: {
-								labels: <?php print_r(json_encode($maxTours)); ?>,
+								labels: <?php print_r(json_encode($maxNoms)); ?>,
 								datasets: [{
 									label: 'Longest',
 									data: <?php print_r(json_encode($maxTours)); ?>,
 									backgroundColor: [
+										'rgba(57, 16, 135, 0.6)',
 										'rgba(255, 99, 132, 0.6)',
 										'rgba(54, 162, 235, 0.6)',
-										'rgba(255, 206, 86, 0.6)',
-										'rgba(75, 192, 192, 0.6)',
 										'rgba(153, 102, 255, 0.6)',
-										'rgba(255, 159, 64, 0.6)'
+										'rgba(75, 192, 192, 0.6)',
+										'rgba(13, 129, 123, 0.6)',
+										'rgba(255, 159, 64, 0.6)',
+										'rgba(255, 206, 86, 0.6)'
 									]
 								}]
 							},
@@ -214,12 +226,15 @@
 									label: 'Most',
 									data: <?php print_r(json_encode($hpNum)); ?>,
 									backgroundColor: [
-										'rgba(255, 99, 132, 0.6)',
-										'rgba(54, 162, 235, 0.6)',
+										'rgba(57, 16, 135, 0.6)',
 										'rgba(255, 206, 86, 0.6)',
-										'rgba(75, 192, 192, 0.6)',
 										'rgba(153, 102, 255, 0.6)',
-										'rgba(255, 159, 64, 0.6)'
+										'rgba(255, 159, 64, 0.6)',
+										'rgba(255, 99, 132, 0.6)',
+										'rgba(13, 129, 123, 0.6)',
+										'rgba(75, 192, 192, 0.6)',
+										'rgba(54, 162, 235, 0.6)'
+										
 									]
 								}]
 							},
