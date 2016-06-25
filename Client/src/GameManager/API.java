@@ -32,7 +32,7 @@ public class API extends App {
     public API(GameView gameView) throws Exception {
         super("keys/client.private", "keys/server.public");
         Properties properties = new Properties();
-        InputStream propertiesStream = this.getClass().getClassLoader().getResourceAsStream("ressources/app.properties");
+        InputStream propertiesStream = new FileInputStream("ressources/app.properties");
         properties.load(propertiesStream);
 
         String host = properties.getProperty("hostname");
